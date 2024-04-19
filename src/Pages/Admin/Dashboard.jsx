@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {FetchAllUser} from  '../../hooks/useFetch'
 import { BsClipboardDataFill, FaUsers, FaUsersBetweenLines, MdOutlineAdminPanelSettings, PiClockClockwiseBold } from '../../Components/ReactIconsIndex'
 
 export default function Dashboard() {
 
+
+
+useEffect (()=> {
     const users = FetchAllUser();
     console.log(users)
+}, [])
+    
 
 
     return (
