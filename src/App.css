@@ -1,0 +1,43 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+*/
+.custom-root {
+  margin: 0;
+  padding: 0;
+  background-color:#EEEEEE;
+} 
+
+.bg-image {
+  background-image: url('./assets/img/bg-progile.jpg');
+  /* You can also specify other background properties */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
+  /* Add more background properties as needed */
+}
+
+.bg-blur {
+  backdrop-filter: blur(3px);
+}
+
+.sticky-bg-white-blur {
+  position: sticky;
+  position: -webkit-sticky;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(3px);
+
+}
+.bg-white-blur {
+
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(3px);
+
+}
+
+/* .bg-img-set {
+
+} */
+
