@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { RiLockPasswordLine } from "../Components/ReactIconsIndex";
 import InputField from './InputField';
-// import { Register } from '../hooks/useRegister';
+import { Register } from '../hooks/useRegister';
 // import { useSearchParams } from 'react-router-dom';
 
 
-function RegisterForm({ type }) {
+function RegisterForm({ role }) {
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -28,7 +28,7 @@ function RegisterForm({ type }) {
 
     const handleSubmit = () => {
 
-        // Register({type, username, fullName, email, password, mobileNumber , degree, specialization, startYear, endYear, companyName, desination, startDate , endDate , currentlyWorking })
+        Register({role, username, fullName, email, password, mobileNumber , degree, specialization, startYear, endYear, companyName, desination, startDate , endDate , currentlyWorking })
             // let accese = JSON.parse(localStorage.getItem('user'))
             // console.log(accese.accessToken)
     }
@@ -47,7 +47,7 @@ function RegisterForm({ type }) {
                 <div className='w-[97%] mx-auto p-5'>
                     <div className='flex justify-between mb-2'>
                         {/* <input type="text"   value={type} placeholder='Role' className=' p-2 rounded-md w-[20%] text-gray-600 text-md border border-gray-300 shadow-md placeholder:text-gray-500 placeholder:mx-2 focus:outline-blue-400' disabled /> */}
-                        <InputField type="text"  value={type} inputClass='focus:outline-blue-400' disabled />
+                        <InputField type="text"  value={role} inputClass='focus:outline-blue-400' disabled />
                     </div>
                     <div className='flex justify-between space-y-8 mb-8 flex-wrap'>
                         <InputField type="text" value={fullName} onChange={setFullName} placeholder='Full Name' inputClass='mt-8' required />

@@ -12,12 +12,19 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { PiClockClockwiseBold } from "react-icons/pi";
 import { RxCrossCircled } from "react-icons/rx";
 import { PiStudent } from "react-icons/pi";
+import { MdPostAdd } from "react-icons/md";
+import { TbEdit } from "react-icons/tb";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaRegWindowClose } from "react-icons/fa";
+import { BiNotification } from "react-icons/bi";
+
 
 // social media icons
 import { TiSocialLinkedin } from "react-icons/ti";
 import { VscGithub } from "react-icons/vsc";
 import { BsTwitterX } from "react-icons/bs";
 import { FiInstagram } from "react-icons/fi";
+
 
 
 
@@ -41,4 +48,9 @@ export {
     VscGithub,
     BsTwitterX,
     FiInstagram,
+    MdPostAdd,
+    TbEdit,
+    RiDeleteBin6Line,
+    FaRegWindowClose,
+    BiNotification, 
 }

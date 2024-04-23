@@ -6,7 +6,7 @@ const ToggleButton = (...props) => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked)
   }
-  console.log(props[0].size)
+  // console.log(props[0].size)
 
   return (
     <div>

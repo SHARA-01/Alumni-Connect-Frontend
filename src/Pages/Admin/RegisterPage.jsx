@@ -16,12 +16,12 @@ function Register() {
 console.log(userType)
 
     return (
-        <div className='min-h-[75vh]'>
+        <div className='min-h-[78vh]'>
             <div className='bg-white pb-2 w-full mt-12 h-auto rounded-lg'>
                 <div className='mt-12'>
                     <div className="flex">
-                        <div className='w-[30%] ml-4 h-[80px] bg-gradient-to-tr from-[#13E2DA] to-[#00b4ccee] rounded-md flex my-6 -mt-7 shadow-lg ' >
-                            <span className='w-full inline-flex  text-xl text-white font-semibold py-6 px-3 capitalize'>{userType ? <div className='flex'>
+                        <div className='w-[32%] ml-2 h-[60px] bg-gradient-to-tr from-[#00b4ccee] to-[#13E2DA] rounded-md flex my-6 -mt-7 shadow-lg ' >
+                            <span className='w-full inline-flex px-3 text-xl text-white font-semibold py-3  capitalize'>{userType ? <div className='flex'>
                                 {`Create ${userType}`}
                                 <FiEdit onClick={() => setUser('')} className='mx-4 my-auto active:text-gray-700  cursor-pointer ' />
                             </div> : "Create New User"}</span>
@@ -31,7 +31,7 @@ console.log(userType)
 
                     {
                         userType ? <div>
-                            <RegisterForm type={userType}  />
+                            <RegisterForm role={userType}  />
                         </div>
 
                             :

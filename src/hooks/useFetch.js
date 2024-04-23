@@ -9,6 +9,7 @@ const Fetch = async ({ email, password }) => {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials : "include"
     });
 
     if (!response.ok) {
@@ -23,11 +24,15 @@ const Fetch = async ({ email, password }) => {
 const FetchAllUser = async () => {
     try {
         const response = await fetch('http://localhost:8000/api/v1/users', {
-            method: 'GET',
-           
+            method: 'get',
+            // body: JSON.stringify({ email, password }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials : "include"
         });
 
-        console.log('Response:', response);
+        // console.log('Response:', response);
 
         if (!response.ok) {
             throw new Error('Failed to fetch all users');
@@ -42,4 +47,37 @@ const FetchAllUser = async () => {
     }
 };
 
-export { Fetch, FetchAllUser };
+const UpdateUser = async() => {
+    try{
+        const fetchData = await fetch('http://localhost:8000/api/v1/users') 
+
+    }
+    catch(error){
+        throw new Error ("Failed to update user", error)
+    }
+}
+
+
+const UserDelete = async (id) => {
+    let deleteUser = await fetch(`http://localhost:8000/api/v1/users/${id}`, {
+        method: "delete",
+       credentials: "include"
+
+    });
+    if (deleteUser.ok) {
+        await deleteUser.json(); // Parse the response JSON
+        // apiData();
+    } else {
+        // Handle the error here
+        console.error("Failed to delete User");
+    }
+}
+
+
+
+
+
+
+
+
+export { Fetch, FetchAllUser, UserDelete };

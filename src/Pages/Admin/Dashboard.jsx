@@ -1,20 +1,27 @@
-import React, { useEffect } from 'react'
-import {FetchAllUser} from  '../../hooks/useFetch'
+import React, { useEffect , useState} from 'react'
+import { FetchAllUser } from '../../hooks/useFetch'
 import { BsClipboardDataFill, FaUsers, FaUsersBetweenLines, MdOutlineAdminPanelSettings, PiClockClockwiseBold } from '../../Components/ReactIconsIndex'
 
 export default function Dashboard() {
+    const [users, setUsers] = useState('')
 
-
-
-useEffect (()=> {
-    const users = FetchAllUser();
-    console.log(users)
-}, [])
-    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const fetchedData = await FetchAllUser();
+                setUsers(fetchedData.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        if (users.length === 0) {
+            fetchData();
+        }
+    }, [users]);
 
 
     return (
-        <div id='Dashboard'>
+        <div id='Dashboard' className='min-h-[73vh]'>
             <div id='first-row' className=' mt-[7%] flex justify-between'>
                 <div className=' flex  justify-between bg-white w-1/3 h-[130px] rounded-md mt-9 p-2 mx-1 shadow-md'>
                     <div className='w-2/3 space-y-12'>
@@ -30,7 +37,7 @@ useEffect (()=> {
                             Membres
                         </span>
                         <span className=' font-bold text-2xl text-gray-700 mx-4'>
-                            500
+                            {users.length}
                         </span>
                     </div>
                 </div>
@@ -49,7 +56,7 @@ useEffect (()=> {
                             Alumnis
                         </span>
                         <span className=' font-bold text-2xl text-gray-700 mx-4'>
-                            200
+                           {users && users.filter(user => user.role === "Alumni").length || 0}
                         </span>
                     </div>
                 </div>
@@ -68,7 +75,7 @@ useEffect (()=> {
                             Students
                         </span>
                         <span className=' font-bold text-2xl text-gray-700 mx-4'>
-                            700
+                        {users && users.filter(user => user.role === "Student").length || 0}
                         </span>
                     </div>
                 </div>
@@ -87,7 +94,7 @@ useEffect (()=> {
                             Admins
                         </span>
                         <span className=' font-bold text-2xl text-gray-700 mx-4'>
-                            5
+                        {users && users.filter(user => user.role === "Admin").length || 0}
                         </span>
                     </div>
                 </div>

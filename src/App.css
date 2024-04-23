@@ -28,6 +28,7 @@
   position: -webkit-sticky;
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(3px);
+  
 
 }
 .bg-white-blur {
@@ -41,3 +42,8 @@
 
 } */
 
+.quill-editor {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none  !important;
+}

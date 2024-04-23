@@ -36,7 +36,7 @@ function UserProfile() {
 
 
     return (
-        <div className='w-auto w-max-[50px] h-auto min-h-[60vh] mx-2 '>
+        <div className='w-auto w-max-[50px] h-auto min-h-[60vh] mx-2 pb-5 '>
             <div>
                 <div>
                     {

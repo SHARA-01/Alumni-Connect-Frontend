@@ -1,8 +1,37 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { FetchAllUser, UserDelete } from '../../hooks/useFetch'
+import { activeStatus, formatDate } from '../../hooks/UseInfo'
+import {  TbEdit , RiDeleteBin6Line } from '../../Components/ReactIconsIndex'
+
 
 export default function Users() {
+
+    const [users, setUsers] = useState('')
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const fetchedData = await FetchAllUser();
+                setUsers(fetchedData.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        if (users.length === 0) {
+            fetchData();
+        }
+    }, [users]);
+
+   const deleteUser = async(id) => {
+    const response = await UserDelete(id);
+    console.log(response)
+
+   }
+
+
     return (
-        <div className='font-sans font-roboto font-helvetica font-arial'>
+        <div className='font-sans font-roboto font-helvetica font-arial min-h-[76vh]'>
             <div>
                 <div name='Admin-table-data' className=' bg-white w-full mt-[5%] rounded-md shadow-md'>
                     <div className='flex'>
@@ -43,108 +72,54 @@ export default function Users() {
 
 
                             <div>
+                                {
+                                    users && users.filter(user => user.role === "Admin").map((user) => (
+                                        <div key={user.id}>
+                                            <hr className='w-full h-[0.03rem] m bg-gray-200' />
+                                            <tr className='flex justify-between '>
+                                                <tc className='w-[30%]'>
+                                                    <td className='flex'>
+                                                        <td className='my-auto'><img className='h-9 w-9 rounded-full' src={user.avatar} alt="" /></td>
+                                                        <td className='grid'>
+                                                            {console.log(user)}
+                                                            <td className='p-2 text-gray-800 text-md font-semibold '>{user.full_name}</td>
+                                                            <td className='p-2 text-gray-600 text-sm -mt-5 '>{user.email}</td>
+                                                        </td>
+                                                    </td>
+                                                </tc>
+                                                <tc className='my-auto '>
+                                                    <td className='text-gray-500 text-sm font-bold '>
+                                                        {user.role}
+                                                    </td>
+                                                </tc>
+                                                <tc className='my-auto '>
+                                                    <td className='text-gray-500 text-sm font-bold '>
+                                                        {activeStatus(user.last_active)
+                                                        }
+                                                    </td>
+                                                </tc>
+                                                <tc className='my-auto '>
+                                                    <td className='text-gray-500 text-sm font-bold mx-auto'>
+                                                       
+                                                    </td>
+                                                </tc>
+                                                <tc className='my-auto '>
+                                                <td className='text-gray-500 space-x-3 font-bold flex text-2xl  p-3'>
+                                                 {
+                                                    console.log(user._id)
+                                                 }
+                                                    <TbEdit  className='hover:border hover:bg-yellow-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl ' />
+                                                    <RiDeleteBin6Line  className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl ' />
 
-                                <hr className='w-full h-[0.03rem] m bg-gray-200' />
-                                <tr className='flex justify-between '>
-                                    <tc className='w-[30%]'>
-                                        <td className='flex'>
-                                            <td className='my-auto'><img className='h-9 w-9 rounded-full' src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" /></td>
-                                            <td className='grid'>
-                                                <td className='p-2 text-gray-800 text-md font-semibold '>Name Meena</td>
-                                                <td className='p-2 text-gray-600 text-sm -mt-5 '>user@gmail.com</td>
-                                            </td>
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Admin
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Active
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            01/01/2001
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Edit
-                                        </td>
-                                    </tc>
+                                                </td>
+                                                </tc>
 
-                                </tr>
+                                            </tr>
+                                        </div>
 
-                                <hr className='w-full h-[0.03rem] m bg-gray-200' />
-                                <tr className='flex justify-between '>
-                                    <tc className='w-[30%]'>
-                                        <td className='flex'>
-                                            <td className='my-auto'><img className='h-9 w-9 rounded-full' src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" /></td>
-                                            <td className='grid'>
-                                                <td className='p-2 text-gray-800 text-md font-semibold '>Name Meena</td>
-                                                <td className='p-2 text-gray-600 text-sm -mt-5 '>user@gmail.com</td>
-                                            </td>
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Admin
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Active
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            01/01/2001
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Edit
-                                        </td>
-                                    </tc>
+                                    ))
+                                }
 
-                                </tr>
-
-                                <hr className='w-full h-[0.03rem] m bg-gray-200' />
-                                <tr className='flex justify-between '>
-                                    <tc className='w-[30%]'>
-                                        <td className='flex'>
-                                            <td className='my-auto'><img className='h-9 w-9 rounded-full' src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" /></td>
-                                            <td className='grid'>
-                                                <td className='p-2 text-gray-800 text-md font-semibold '>Name Meena</td>
-                                                <td className='p-2 text-gray-600 text-sm -mt-5 '>user@gmail.com</td>
-                                            </td>
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Admin
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Active
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            01/01/2001
-                                        </td>
-                                    </tc>
-                                    <tc className='my-auto '>
-                                        <td className='text-gray-500 text-sm font-bold '>
-                                            Edit
-                                        </td>
-                                    </tc>
-
-                                </tr>
                             </div>
 
                         </table>
@@ -187,37 +162,50 @@ export default function Users() {
                                     </th>
                                 </tc>
                             </tr>
-                            <tr className='flex justify-between'>
-                                <tc className='w-[30%]'>
-                                    <td className='flex'>
-                                        <td className='my-auto'><img className='h-9 w-9 rounded-full' src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" /></td>
-                                        <td className='grid'>
-                                            <td className='p-2 text-gray-800 text-md font-semibold '>Name Meena</td>
-                                            <td className='p-2 text-gray-600 text-sm -mt-5 '>user@gmail.com</td>
-                                        </td>
-                                    </td>
-                                </tc>
-                                <tc className='my-auto '>
-                                    <td className='text-gray-500 text-sm font-bold '>
-                                        Alumni
-                                    </td>
-                                </tc>
-                                <tc className='my-auto '>
-                                    <td className='text-gray-500 text-sm font-bold '>
-                                        Active
-                                    </td>
-                                </tc>
-                                <tc className='my-auto '>
-                                    <td className='text-gray-500 text-sm font-bold '>
-                                        01/01/2001
-                                    </td>
-                                </tc>
-                                <tc className='my-auto '>
-                                    <td className='text-gray-500 text-sm font-bold '>
-                                        Edit
-                                    </td>
-                                </tc>
-                            </tr>
+                            {
+                                users &&  users.filter(user => user.role === "Alumni").map((user) => (
+                                    <div key={user.id}>
+                                        <hr className='w-full h-[0.03rem] m bg-gray-200' />
+                                        <tr className='flex justify-between '>
+                                            <tc className='w-[32%]'>
+                                                <td className='flex'>
+                                                    <td className='my-auto'><img className='h-9 w-9 rounded-full' src={user.avatar} alt="" /></td>
+                                                    <td className='grid'>
+                                                        {console.log(user)}
+                                                        <td className='p-2 text-gray-800 text-md font-semibold '>{user.full_name}</td>
+                                                        <td className='p-2 text-gray-600 text-sm -mt-5 '>{user.email}</td>
+                                                    </td>
+                                                </td>
+                                            </tc>
+                                            <tc className='my-auto '>
+                                                <td className='text-gray-500 text-sm font-bold '>
+                                                    {user.role}
+                                                </td>
+                                            </tc>
+                                            <tc className='my-auto '>
+                                                <td className='text-gray-500 text-sm font-bold '>
+                                                    {activeStatus(user.last_active)
+                                                    }
+                                                </td>
+                                            </tc>
+                                            <tc className='my-auto '>
+                                                <td className='text-gray-500 text-sm font-bold '>
+                                                    {formatDate(user.createdAt)}
+                                                </td>
+                                            </tc>
+                                            <tc className='my-auto '>
+                                            <td className='text-gray-500 space-x-3 font-bold flex text-2xl  p-3'>
+                                                    <TbEdit  className='hover:border hover:bg-yellow-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl ' />
+                                                    <RiDeleteBin6Line  className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl ' />
+
+                                                </td>
+                                            </tc>
+
+                                        </tr>
+                                    </div>
+
+                                ))
+                            }
 
                         </table>
                     </div>
@@ -259,47 +247,56 @@ export default function Users() {
                                     </th>
                                 </tc>
                             </tr>
-                            <tr className='flex justify-between'>
-                                <tc className='w-[30%]'>
-                                    <td className='flex'>
-                                        <td className='my-auto'><img className='h-9 w-9 rounded-full' src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="" /></td>
-                                        <td className='grid'>
-                                            <td className='p-2 text-gray-800 text-md font-semibold '>Name Meena</td>
-                                            <td className='p-2 text-gray-600 text-sm -mt-5 '>user@gmail.com</td>
-                                        </td>
-                                    </td>
-                                </tc>
-                                <tc className='my-auto '>
-                                    <td className='text-gray-500 text-sm font-bold '>
-                                        Students
-                                    </td>
-                                </tc>
-                                <tc className='my-auto '>
-                                    <td className='text-gray-500 text-sm font-bold '>
-                                        Active
-                                    </td>
-                                </tc>
-                                <tc className='my-auto '>
-                                    <td className='text-gray-500 text-sm font-bold '>
-                                        01/01/2001
-                                    </td>
-                                </tc>
-                                <tc className='my-auto '>
-                                    <td className='text-gray-500 text-sm font-bold '>
-                                        Edit
-                                    </td>
-                                </tc>
-                            </tr>
+                            {
+                            users && users.filter(user => user.role === "Student").map((user) => (
+                                    <div key={user.id}>
+                                        <hr className='w-full h-[0.03rem] m bg-gray-200' />
+                                        <tr className='flex justify-between '>
+                                            <tc className='w-[30%]'>
+                                                <td className='flex'>
+                                                    <td className='my-auto'><img className='h-9 w-9 rounded-full' src={user.avatar} alt="" /></td>
+                                                    <td className='grid'>
+                                                        {console.log(user)}
+                                                        <td className='p-2 text-gray-800 text-md font-semibold '>{user.full_name}</td>
+                                                        <td className='p-2 text-gray-600 text-sm -mt-5 '>{user.email}</td>
+                                                    </td>
+                                                </td>
+                                            </tc>
+                                            <tc className='my-auto '>
+                                                <td className='text-gray-500 text-sm font-bold '>
+                                                    {user.role}
+                                                </td>
+                                            </tc>
+                                            <tc className='my-auto '>
+                                                <td className='text-gray-500 text-sm font-bold '>
+                                                    {activeStatus(user.last_active)
+                                                    }
+                                                </td>
+                                            </tc>
+                                            <tc className='my-auto '>
+                                                <td className='text-gray-500 text-sm font-bold '>
+                                                    {formatDate(user.createdAt)}
+                                                </td>
+                                            </tc>
+                                            <tc className='my-auto '>
+                                            <td className='text-gray-500 space-x-3 font-bold flex text-2xl  p-3'>
+                                                    <TbEdit  className='hover:border hover:bg-yellow-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl ' />
+                                                    <RiDeleteBin6Line onClick={() => deleteUser(user._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl ' />
+
+                                                </td>
+                                            </tc>
+
+                                        </tr>
+                                    </div>
+
+                                ))
+                            }
 
 
                         </table>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     )
 }

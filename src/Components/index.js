@@ -21,8 +21,10 @@ import {fixedMenuItemClass, fixedInputClass} from '../Components/fixedClass.jsx'
 import RegisterForm from '../Components/RegisterForm.jsx'
 import ToggleButton from '../Components/ToggleButton.jsx'
 import AdminNavbar from '../Layouts/AdminNavbar.jsx'
-import AdminFooter from '../Layouts/AdminFooter.jsx'
 
+import CreatePost from './CreatePost.jsx'
+
+import JobPost from '../Pages/User/JobPost.jsx'
 
 // user
 import UserMain from '../Layouts/UserMain.jsx'
@@ -34,6 +36,7 @@ import ProfileCard from '../Components/ProfileCard.jsx'
 import UserProfile from '../Pages/User/UserProfile.jsx'
 import InputField from '../Components/InputField.jsx'
 import AlumniProfileCard from '../Components/AlumniProfileCard.jsx'
+import JobPostCard from './JobPostCard.jsx'
 
 
 
@@ -57,9 +60,10 @@ export {
     UsersPage,
     AdminMain,
     Login,
-    AdminFooter,
     fixedInputClass,
     fixedMenuItemClass,
+    CreatePost,
+    JobPostCard,
     
     // user
     UserMain,
@@ -71,5 +75,7 @@ export {
     UserProfile,
     InputField,
     AlumniProfileCard,
+    JobPost,
+
 }
 

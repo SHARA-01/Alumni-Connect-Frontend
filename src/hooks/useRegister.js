@@ -8,16 +8,13 @@ const Register = async ({role,username, fullName, email, password, mobileNumber 
     let response = await fetch('http://localhost:8000/api/v1/admin/users', {
         method: 'post',
         body: JSON.stringify(
-            {userDetails: {username, fullName, email, password, mobileNumber, role}},
-            {GraduationDetails: {degree, specialization, startYear, endYear}},
-            {CompanyDetails: {companyName, desination, startDate , endDate , currentlyWorking}}
+            {username, fullName, email, password, mobileNumber, role,degree, specialization, startYear, endYear,
+            companyName, desination, startDate , endDate , currentlyWorking}
         ),
         headers: {
-            'Content-Type': 'application/json',
-            'accessToken': `${localStore.accessToken}`,
-            'refreshToken': `${localStore.refreshToken}`
-            
+            'Content-Type': 'application/json'
         },
+        credentials: "include"
     });
 
     if (!response.ok) {

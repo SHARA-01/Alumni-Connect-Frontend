@@ -14,8 +14,11 @@ function AdminNavbar() {
     const subRoutes = location.pathname.split(basePath)[1].substring(1);
 
 
-    const RightMenuHandle = () => {
-        setMenuvisible(!menuvisible);
+    const RightMenuVisible = () => {
+        setMenuvisible(true);
+    }
+    const RightMenuHide = () => {
+        setMenuvisible(false);
     }
 
     const logout = async () => {
@@ -41,15 +44,14 @@ function AdminNavbar() {
 
                 <div className='py-[6px] mx-4 justify-end cursor-pointer  '>
                     <img
-                        onClick={RightMenuHandle}
+                        onMouseEnter={RightMenuVisible}
+                        // onMouseLeave={RightMenuHide}
                         alt=""
                         className={`h-11 w-11 rounded-full absolute  z-[1] `}
                         src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" />
                     {
-                        menuvisible ? <div className='-mt-2  rounded-md w-[7%] absolute p-3 border-b-2  border-r-2 border-gray-200 -mx-[31px] bg-blur  -z-10'>
-                            <div className=''>
-
-                            </div>
+                        menuvisible ? <div onMouseLeave={RightMenuHide} className='-mt-2  rounded-md w-[7%] absolute p-3 border-b-2  border-r-2 border-gray-200 -mx-[31px] bg-blur  -z-10'>
+                           
                             <ul className='space-y-2 pt-[3rem]'>
                                 <li className=' mx-auto space-y-3 w-[90%]'>
                                     <span className=' w-full text-[#344767] text-md font-semibold px-auto active:text-gray-500'>Profile</span>

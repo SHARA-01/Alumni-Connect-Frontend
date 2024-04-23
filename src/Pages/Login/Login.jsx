@@ -6,15 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Fetch } from '../../hooks/useFetch'
 
-import { useCookies } from 'react-cookie';
 
 export default function Login() {
     const [email, setemail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false);
-
-
-    const [cookies, setCookie] = useCookies();
 
     const navigate = useNavigate();
 
@@ -23,12 +19,6 @@ export default function Login() {
         let userdata = await Fetch({ email, password });
         // const userdata = null
         console.log("user data ", userdata)
-
-        setCookie(
-            {
-                "accessToken": userdata.data.accessToken,
-                "refreshToken": userdata.data.refreshToken 
-    })
 
         if (userdata.data.user.role === "Admin") {
             localStorage.setItem('user', JSON.stringify(userdata.data));
