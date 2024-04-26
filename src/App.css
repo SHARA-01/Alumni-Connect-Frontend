@@ -19,6 +19,11 @@
   /* Add more background properties as needed */
 }
 
+.bg-img {
+  background-size: cover;
+  background-position: center;
+}
+
 .bg-blur {
   backdrop-filter: blur(3px);
 }

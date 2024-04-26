@@ -1,33 +1,40 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import {BiSolidDashboard, IoMdPerson, IoPeopleSharp} from '../Components/ReactIconsIndex'
 
 export default function Sidebar() {
-    const [activeMenu, setActiveMenu] = useState(1)
+    const location = useLocation();
+    const [activeMenu, setActiveMenu] = useState('')
+
+    useEffect(() => {
+        const currentPath = location.pathname;
+        setActiveMenu(currentPath.substring(7));
+      }, [location]);
+    
 
 
-    const handleBtnFoucus = (value) => {
+        // const handleBtnFoucus = (value) => {
 
-        switch (value) {
-            case 1:
-                setActiveMenu(value);
-                break;
-            case 2:
-                setActiveMenu(value);
-                break;
-            case 3:
-                setActiveMenu(value);
-                break;
-            case 4:
-                setActiveMenu(value);
-                break;
-            case 5:
-                setActiveMenu(value);
-                break;
-            default:
-                setActiveMenu(value);
-        }
-    }
+        //     switch (value) {
+        //         case '':
+        //             setActiveMenu(value);
+        //             break;
+        //         case 2:
+        //             setActiveMenu(value);
+        //             break;
+        //         case 3:
+        //             setActiveMenu(value);
+        //             break;
+        //         case 4:
+        //             setActiveMenu(value);
+        //             break;
+        //         case 5:
+        //             setActiveMenu(value);
+        //             break;
+        //         default:
+        //             setActiveMenu(value);
+        //     }
+        // }
 
     
 
@@ -45,36 +52,36 @@ export default function Sidebar() {
             <ul className='w-4/5 m-auto flex flex-col text-center text-lg space-y-4  p-3 '>
                 <li className=' flex group'>
 
-                    <Link to='/admin' onClick={() => handleBtnFoucus(1)} className={`flex py-2 px-2 rounded-md w-full border-none ${ activeMenu === 1 ? "bg-sky-400 text-white" : "text-[#344767]" } focus:text-white hover:bg-gray-200 focus:shadow-md focus:bg-sky-400`}>
-                        <BiSolidDashboard size={22} className={`my-auto mx-2 ${activeMenu === 1 ? "text-white" : "text-[#40679E]"}`} />
+                    <Link to='/admin' className={`flex py-2 px-2 rounded-md w-full border-none ${ activeMenu === '' ? "bg-sky-400 text-white" : "text-[#344767]" } focus:text-white hover:bg-gray-200 focus:shadow-md focus:bg-sky-400`}>
+                        <BiSolidDashboard size={22} className={`my-auto mx-2 ${activeMenu === '' ? "text-white" : "text-[#40679E]"}`} />
                         Dashboard
                     </Link>
 
                 </li>
                 <li >
-                    <Link to='profile' onClick={() => handleBtnFoucus(2)} className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 2 ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
-                        <IoMdPerson size={22} className={`my-auto mx-2 ${activeMenu === 2 ? "text-white" : "text-[#40679E]"}`} />
+                    <Link to='profile'  className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === "profile" ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
+                        <IoMdPerson size={22} className={`my-auto mx-2 ${activeMenu === 'profile' ? "text-white" : "text-[#40679E]"}`} />
                         Profile
                     </Link>
 
                 </li>
                 <li>
-                    <Link to='users' onClick={() => handleBtnFoucus(3)} className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 3 ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
-                        <IoPeopleSharp size={22} className={`my-auto mx-2 ${activeMenu === 3 ? "text-white" : "text-[#40679E]"}`} />
+                    <Link to='users'  className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 'users' ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
+                        <IoPeopleSharp size={22} className={`my-auto mx-2 ${activeMenu === 'users' ? "text-white" : "text-[#40679E]"}`} />
                         User
                     </Link>
 
                 </li>
                 <li className=''>
-                    <Link to='user/register' onClick={() => handleBtnFoucus(4)} className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 4 ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
-                        <BiSolidDashboard size={22} className={`my-auto mx-2 ${activeMenu === 4 ? "text-white" : "text-[#40679E]"}`} />
+                    <Link to='user/register'  className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 'user/register' ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
+                        <BiSolidDashboard size={22} className={`my-auto mx-2 ${activeMenu === 'user/register' ? "text-white" : "text-[#40679E]"}`} />
                         Register
                     </Link>
 
                 </li>
                 <li className=''>
-                    <Link to='new-post' onClick={() => handleBtnFoucus(5)} className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 5 ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
-                        <BiSolidDashboard size={22} className={`my-auto mx-2 ${activeMenu === 5 ? "text-white" : "text-[#40679E]"}`} />
+                    <Link to='new-post' className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 'new-post' ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
+                        <BiSolidDashboard size={22} className={`my-auto mx-2 ${activeMenu === 'new-post' ? "text-white" : "text-[#40679E]"}`} />
                         Create Post
                     </Link>
 

@@ -6,7 +6,7 @@ const InputField = ({ type, placeholder, value, onChange, id, label, inputdivcla
     return (
 
        
-                <div className={`flex flex-col lg:max-w-[300px] lg:min-w-[300px]  ${inputdivclass}`}>
+                <div className={`flex flex-col lg:max-w-[300px] lg:min-w-[250px]  ${inputdivclass}`}>
                     < label htmlFor={id} className="mb-1 text-md font-bold" > {label}</label >
                     <input
                         type={type}

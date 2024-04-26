@@ -59,25 +59,19 @@ const UpdateUser = async() => {
 
 
 const UserDelete = async (id) => {
-    let deleteUser = await fetch(`http://localhost:8000/api/v1/users/${id}`, {
+    let deleteUser = await fetch(`http://localhost:8000/api/v1/admin/users/${id}`, {
         method: "delete",
        credentials: "include"
 
     });
     if (deleteUser.ok) {
         await deleteUser.json(); // Parse the response JSON
-        // apiData();
+        // setUsers('')
     } else {
         // Handle the error here
         console.error("Failed to delete User");
     }
 }
-
-
-
-
-
-
 
 
 export { Fetch, FetchAllUser, UserDelete };

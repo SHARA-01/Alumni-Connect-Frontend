@@ -4,15 +4,9 @@ const activeStatus = (activeDate) => {
     const threeMonthsAgoStartDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1);
     const isActiveLastThreeMonths = lastActiveDate >= threeMonthsAgoStartDate && lastActiveDate <= currentDate;
 
-    console.log(lastActiveDate);
-console.log(threeMonthsAgoStartDate);
-
     if (isActiveLastThreeMonths) {
-        console.log(isActiveLastThreeMonths);
-        console.log("The user was active in the last three months.");
         return "Active";
     } else {
-        console.log("The user was not active in the last three months.");
         return "DeActive";
     }
 }

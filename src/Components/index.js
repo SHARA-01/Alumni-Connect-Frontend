@@ -1,5 +1,5 @@
 // auth-pages
-import Login  from '../Pages/Login/Login.jsx'
+import Login from '../Pages/Login/Login.jsx'
 // routess
 import Routess from '../router/Routess.jsx'
 
@@ -9,14 +9,14 @@ import AdminMain from '../Layouts/AdminMain.jsx'
 import Sidebar from '../Layouts/Sidebar.jsx'
 //admin -  other-comp
 import Dashbord from '../Pages/Admin/Dashboard.jsx'
-import UsersPage  from '../Pages/Admin/UsersPage.jsx'
+import UsersPage from '../Pages/Admin/UsersPage.jsx'
 import ProfilePage from '../Pages/Admin/ProfilePage.jsx'
 import RegisterPage from '../Pages/Admin/RegisterPage.jsx'
 import PostPage from '../Pages/Admin/PostPage.jsx'
 
 //  constants
 // need to delete this folder
-import {fixedMenuItemClass, fixedInputClass} from '../Components/fixedClass.jsx'
+import { fixedMenuItemClass, fixedInputClass } from '../Components/fixedClass.jsx'
 
 import RegisterForm from '../Components/RegisterForm.jsx'
 import ToggleButton from '../Components/ToggleButton.jsx'
@@ -37,8 +37,12 @@ import UserProfile from '../Pages/User/UserProfile.jsx'
 import InputField from '../Components/InputField.jsx'
 import AlumniProfileCard from '../Components/AlumniProfileCard.jsx'
 import JobPostCard from './JobPostCard.jsx'
+import UserProfileUpdateAdmin from './UserProfileUpdate.jsx'
+import UserProfileAdmin from './UserProfileAdmin.jsx'
 
 
+//  test  page
+import TestPage from '../Pages/testPage.jsx'
 
 
 
@@ -56,7 +60,7 @@ export {
     RegisterPage,
     PostPage,
     Dashbord,
-    ProfilePage, 
+    ProfilePage,
     UsersPage,
     AdminMain,
     Login,
@@ -64,7 +68,9 @@ export {
     fixedMenuItemClass,
     CreatePost,
     JobPostCard,
-    
+    UserProfileUpdateAdmin,
+    UserProfileAdmin,
+
     // user
     UserMain,
     Usernavbar,
@@ -76,6 +82,9 @@ export {
     InputField,
     AlumniProfileCard,
     JobPost,
+
+    // test page
+    TestPage
 
 }
 

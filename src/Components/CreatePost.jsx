@@ -29,10 +29,10 @@ const CreatePost = ({hide}) => {
                     </li>
                 </ul>
                 <div className="border rounded-lg p-2 space-y-3 ">
-                <label className='text-gray-600 font-semibold' htmlFor="job-description">job description</label>
+                <label className='text-gray-600 font-semibold ' htmlFor="job-description">job description</label>
                 <ReactQuill
                 id='job-description'
-                    // className='w-full bg-white mt-3   '
+                    className='w-full bg-white  rounded-md   '
                     theme="snow" // Use 'snow' theme for a simple editor
                     value={editorHtml} // Set the editor content
                     onChange={handleChange} // Handle changes in editor content

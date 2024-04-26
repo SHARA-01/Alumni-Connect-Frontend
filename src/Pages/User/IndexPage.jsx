@@ -8,7 +8,6 @@ function IndexPage() {
     const [searchValue, setSearchValue] = useState('')
     const [users, setUsers] = useState('')
 
-    const localStorageData = JSON.parse(localStorage.getItem('user'))
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,7 +27,7 @@ function IndexPage() {
     return (
         <div className='mx-3 pb-5 '>
             <div className='lg:w-[80vw] mx-auto h-auto sticky top-4 my-[10vh] z-10'>
-                <Searchbar value={searchValue} onChange={setSearchValue} role={`${localStorageData.user.role}`} />
+                <Searchbar value={searchValue} onChange={setSearchValue} />
             </div>
 
             <div className='w-full text-center py-10 felx'>
