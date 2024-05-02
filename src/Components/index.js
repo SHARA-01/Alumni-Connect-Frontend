@@ -39,6 +39,10 @@ import AlumniProfileCard from '../Components/AlumniProfileCard.jsx'
 import JobPostCard from './JobPostCard.jsx'
 import UserProfileUpdateAdmin from './UserProfileUpdate.jsx'
 import UserProfileAdmin from './UserProfileAdmin.jsx'
+import CreateJobPost from '../Pages/User/CreateJobPost.jsx'
+import JobsPostedPageForAlumni from '../Pages/User/PostedJobs.jsx'
+import JobPostView  from '../Pages/User/jobPostView.jsx'
+import DisplayUserProfile from '../Pages/User/DisplayUserProfile.jsx'
 
 
 //  test  page
@@ -70,6 +74,8 @@ export {
     JobPostCard,
     UserProfileUpdateAdmin,
     UserProfileAdmin,
+    JobsPostedPageForAlumni,
+    JobPostView,
 
     // user
     UserMain,
@@ -82,6 +88,8 @@ export {
     InputField,
     AlumniProfileCard,
     JobPost,
+    CreateJobPost,
+    DisplayUserProfile,
 
     // test page
     TestPage

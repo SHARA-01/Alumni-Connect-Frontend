@@ -1,55 +1,82 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { PiStudent } from '../../Components/ReactIconsIndex'
-import {InputField, ProfileCard} from '../../Components/index'
+import { InputField, ProfileCard } from '../../Components/index'
+import { AvatarUpload, UpdateUser, WhoAmI } from '../../hooks/useFetch'
+
 
 function UserProfile() {
 
-    // const data = JSON.parse(localStorage.getItem('user'))
+    const [UplaodActive, setUploadActive] = useState(false)
+    const [setedfile, setSetedFile] = useState('')
+    const [userData, setUserData] = useState('')
 
-    // console.log(data.user)
+    const [role, setRole] = useState(userData?.role ||  '')
+    const [username, setUserName] = useState(userData?.username ||  '')
+    const [fullName, setFullName] = useState(userData?.username ||  '')
+    const [email, setEmail] = useState(userData?.username ||  '')
+    const [mobileNumber, setMobileNumber] = useState(userData?.username ||  '')
 
-    // const imgUrl = (data ? data.user.avatar : "")
-    const imgUrl = null
+    const [degree, setDegree] = useState(userData?.graduation_details?.degree || '')
+    const [specialization, setSpecialization] = useState(userData?.graduation_details?.specialization ||'')
+    const [startYear, setStartYear] = useState(userData?.graduation_details?.start_year ||'')
+    const [endYear, setEndYear] = useState(userData?.graduation_details?.end_year ||'')
 
-    // console.log(data.user)
+    const [companyName, setCompanyName] = useState(userData?.company_details?.company_name ||'')
+    const [desination, setDesination] = useState(userData?.company_details?.designation  ||'')
+    const [startDate, setStartDate] = useState(userData?.company_details?.start_date ||'')
+    const [endDate, setEndDate] = useState(userData?.company_details?.end_date ||'')
+    const [currentlyWorking, setCurrentlyWorking] = useState(userData?.company_details?.currently_working ||'')
 
-    const data = {
-        "_id": "6612be6de61e0bc048b025ee",
-        "username": "user01",
-        "email": "admin01@gmail.com",
-        "mobile_number": 8824562736,
-        "full_name": "user-01",
-        "avatar": "https://res.cloudinary.com/denciqusr/image/upload/v1706349859/azkyifgwggdyjayqxqso.jpg",
-        "role": "Student",
-        "graduation_details": {
-            "degree": "Btech",
-            "specialization": "user-01",
-            "start_year": 2020,
-            "end_year": 2024,
-            "_id": "6612be6de61e0bc048b025ef"
-        },
-        "last_active": "2024-04-08T16:07:48.551Z",
-        "createdAt": "2024-04-07T15:40:29.985Z",
-        "updatedAt": "2024-04-14T09:52:16.232Z",
-        "__v": 0
+    useEffect(() => {
+        const fetch = async () => {
+            let response = await WhoAmI()
+            setUserData(response.data)
+        }
+        if (userData === '') {
+            fetch();
+        }
+    }, [])
+
+
+    const UpdateProfile = (id) => {
+        let fetch = async () => {
+            let response = await UpdateUser({ id, username, fullName, email, mobileNumber, role , });
+            // if (response.ok) setEditActive(false)
+        }
+        fetch();
     }
 
+
+    const handleUpload = async () => {
+        const response = await AvatarUpload(setedfile);
+    };
 
     return (
         <div className='w-auto w-max-[50px] h-auto min-h-[60vh] mx-2 pb-5 '>
             <div>
                 <div>
                     {
-                        imgUrl ? (<img src={imgUrl} alt='' />) :
+                        userData && userData.avatar ? <div className='flex w-auto flex-col  justify-center '>
+                            <div className='w-[100px] h-[100px]  mt-8 my-4 p-1 mx-auto flex rounded-full shadow-md shadow-black/20 border border-t-1 border-gray-200 overflow-hidden'>
+                                <img src={userData.avatar} className='rounded-full ' alt="" />
+                            </div>{
+                                UplaodActive ? <input className='mx-auto my-8 outline-none' placeholder='Choose a file' type="file" onChange={(e) => setSetedFile(e.target.files[0])} /> : ''
+                            }
+                            {
+                                UplaodActive ?
+                                    <span onClick={() => { handleUpload(), setUploadActive(true), setAvatar('') }} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Upload</span> :
+                                    <span onClick={() => setUploadActive(true)} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Change Profile</span>
+                            }
+                        </div> :
                             <div className='flex w-auto flex-col  justify-center '>
                                 <div className='w-[100px] h-[100px]  mt-8 my-4 p-2 mx-auto rounded-full flex shadow-md border border-t-1 border-gray-200'>
                                     <PiStudent size={50} className='mx-auto my-auto' />
                                 </div>
-                                <span className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800'>Change Profile </span>
+                                <span onClick={() => setUploadActive(!UplaodActive)} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Change Profile 2</span>
                             </div>
                     }
                 </div>
-              
+
             </div>
 
             <div className='w-auto mx-[2%] lg:w-1/2 lg:mx-auto my-5'>

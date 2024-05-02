@@ -4,16 +4,7 @@ import { Link } from 'react-router-dom';
 import { FiEdit, PiStudent } from "../../Components/ReactIconsIndex";
 
 function Register() {
-
-
-
     const [userType, setUser] = useState('')
-
-    
-
-    
-
-console.log(userType)
 
     return (
         <div className='min-h-[78vh]'>
@@ -31,11 +22,9 @@ console.log(userType)
 
                     {
                         userType ? <div>
-                            <RegisterForm role={userType}  />
+                            <RegisterForm role={userType} />
                         </div>
-
                             :
-
                             <div className='flex mt-10 justify-between w-[95%] mx-auto h-auto'>
                                 <div className='bg-gray-100 shadow-md w-[30%] rounded-md p-3 my-10  group '>
                                     <div className='w-[100px] mx-auto h-[100px] bg-purple-500 rounded-full shadow-md border-[2px] border-white  -mt-[3rem]   '>

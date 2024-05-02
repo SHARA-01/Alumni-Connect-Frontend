@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Login, AdminMain, Routess, Dashbord, UserProfile, UsersPage, RegisterPage, PostPage, UserMain, IndexPage, ProfilePage, JobPost, TestPage } from './Components/index.js'
+import { Login, AdminMain, Routess, Dashbord, UserProfile, UsersPage, RegisterPage, PostPage, UserMain, IndexPage, ProfilePage, JobPost, TestPage, CreateJobPost, JobsPostedPageForAlumni, JobPostView, DisplayUserProfile } from './Components/index.js'
 import { Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import PrivateRouter from './router/PrivateRouter.jsx'
 import './index.css'
@@ -25,8 +25,12 @@ const router = createBrowserRouter(
       {/* <Route element={<PrivateRouter />}> */}
       <Route path='/user' element={<UserMain />} >
             <Route path='' element={<IndexPage />} index/>
+            <Route path=':id' element={<DisplayUserProfile />} />
             <Route path='profile' element={<UserProfile />} />
-            <Route path='Jobs' element={<JobPost />} />
+            <Route path='new-post' element={<CreateJobPost />} />
+            <Route path='jobs' element={<JobPost />} />
+            <Route path='job/:id' element={<JobPostView/>} />
+            <Route path='job-posted' element={<JobsPostedPageForAlumni />} />
       </Route>
       {/* </Route> */}
 

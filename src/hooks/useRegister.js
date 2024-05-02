@@ -1,15 +1,9 @@
-const Register = async ({role,username, fullName, email, password, mobileNumber , degree, specialization, startYear, endYear, companyName, desination, startDate , endDate , currentlyWorking }) => {
-   
-    const localStore = JSON.parse(localStorage.getItem('user'))
-
-
-
+const Register = async ({role,username, fullName, email, mobileNumber , degree, specialization, startYear, endYear, companyName, desination, startDate , endDate , currentlyWorking }) => {
 
     let response = await fetch('http://localhost:8000/api/v1/admin/users', {
         method: 'post',
         body: JSON.stringify(
-            {username, fullName, email, password, mobileNumber, role,degree, specialization, startYear, endYear,
-            companyName, desination, startDate , endDate , currentlyWorking}
+            {role,username, fullName, email, mobileNumber , degree, specialization, startYear, endYear, companyName, desination, startDate , endDate , currentlyWorking }
         ),
         headers: {
             'Content-Type': 'application/json'

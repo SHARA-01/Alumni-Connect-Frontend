@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
+import { ActivePost } from '../hooks/useFetchJobs'
 
-const ToggleButton = (...props) => {
-  const [isChecked, setIsChecked] = useState(false)
+const ToggleButton = (is_active, id, setJobId) => {
+  const [isChecked, setIsChecked] = useState(is_active.is_active || false)
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked)
   }
-  // console.log(props[0].size)
 
   return (
     <div>
@@ -19,14 +19,12 @@ const ToggleButton = (...props) => {
             className='sr-only'
           />
           <div
-            className={`box block h-3 w-8 rounded-full ${
-              isChecked ? 'bg-gray-700' : 'bg-gray-400'
-            }`}
+            className={`box block h-3 w-8 rounded-full ${isChecked ? 'bg-green-700' : 'bg-red-400'
+              }`}
           ></div>
           <div
-            className={`absolute left-0 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-gray-800 border transition ${
-              isChecked ? 'bg-white border-gray-800 translate-x-full' : ''
-            }`}
+            className={`absolute left-0 -top-1 flex h-5 w-5 items-center justify-center rounded-full  border transition ${isChecked ? 'bg-green-900 border-gray-800 translate-x-full' : 'bg-red-800'
+              }`}
           ></div>
         </div>
       </label>

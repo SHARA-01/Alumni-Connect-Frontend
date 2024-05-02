@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import { Outlet } from 'react-router-dom';
 import { AdminNavbar, Sidebar } from "../Components/index";
+import { WhoAmI } from "../hooks/useFetch";
 
 export default function DesktopMessage() {
     const [isMobile, setIsMobile] = useState(false);
+    const [user, setUser] = useState('User')
+
+    const handleUserData = async () => {
+        let userdata = await WhoAmI();
+        setUser(userdata.data)
+    }
 
     useEffect(() => {
         const checkScreenSize = () => {
             setIsMobile(window.innerWidth < 1200); // Adjust the width as needed for your definition of mobile
         };
-        checkScreenSize();     // Initial check
+        checkScreenSize();  
+        handleUserData();    
         window.addEventListener("resize", checkScreenSize);    // Event listener for screen size change
         return () => window.removeEventListener("resize", checkScreenSize);   // Clean up event listener
     }, []);
@@ -31,10 +39,10 @@ export default function DesktopMessage() {
 
                         <div className="w-4/5 h-auto">
                             <div id="adminbar" className="w-full h-auto sticky-bg-white-blur top-4 z-10  rounded-lg ">
-                                <AdminNavbar />
+                                <AdminNavbar User={user} />
                             </div>
 
-                            <Outlet />
+                            <Outlet User={user} />
                         </div>
                     </div>
 

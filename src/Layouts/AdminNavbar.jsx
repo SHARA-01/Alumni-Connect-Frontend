@@ -3,7 +3,7 @@ import { GoHome } from '../Components/ReactIconsIndex'
 import {useNavigate} from 'react-router-dom'
 
 
-function AdminNavbar() {
+function AdminNavbar({User}) {
 
     const [menuvisible, setMenuvisible] = useState(false)
     const navigate = useNavigate()
@@ -22,7 +22,6 @@ function AdminNavbar() {
     }
 
     const logout = async () => {
-
         localStorage.clear()
         navigate('/')
 
@@ -48,7 +47,7 @@ function AdminNavbar() {
                         // onMouseLeave={RightMenuHide}
                         alt=""
                         className={`h-11 w-11 rounded-full absolute  z-[1] `}
-                        src="https://gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" />
+                        src={User && User.avatar || "!"} />
                     {
                         menuvisible ? <div onMouseLeave={RightMenuHide} className='-mt-2  rounded-md w-[7%] absolute p-3 border-b-2  border-r-2 border-gray-200 -mx-[31px] bg-blur  -z-10'>
                            

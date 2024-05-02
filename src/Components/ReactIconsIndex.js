@@ -17,6 +17,9 @@ import { TbEdit } from "react-icons/tb";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegWindowClose } from "react-icons/fa";
 import { BiNotification } from "react-icons/bi";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { FaWindowClose } from 'react-icons/fa';
+
 
 
 // social media icons
@@ -53,4 +56,6 @@ export {
     RiDeleteBin6Line,
     FaRegWindowClose,
     BiNotification, 
+    IoMdCloseCircleOutline,
+    FaWindowClose,
 }

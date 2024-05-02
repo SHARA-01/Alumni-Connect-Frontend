@@ -1,77 +1,134 @@
-
 const localData = JSON.parse(localStorage.getItem('user'));
 
 const Fetch = async ({ email, password }) => {
-
     let response = await fetch('http://localhost:8000/api/v1/users/login', {
         method: 'post',
         body: JSON.stringify({ email, password }),
         headers: {
             'Content-Type': 'application/json'
         },
-        credentials : "include"
+        credentials: "include"
     });
-
     if (!response.ok) {
         throw new Error('Failed To Fetch Data');
     }
-
     let fetchData = await response.json();
-    console.log("fetch function working ", fetchData);
     return fetchData;
-
 }
-const FetchAllUser = async () => {
+
+const FetchAllUser = async (query) => {
     try {
-        const response = await fetch('http://localhost:8000/api/v1/users', {
+        const response = await fetch(`http://localhost:8000/api/v1/users?${query}`, {
             method: 'get',
-            // body: JSON.stringify({ email, password }),
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials : "include"
+            credentials: "include"
         });
-
-        // console.log('Response:', response);
-
         if (!response.ok) {
             throw new Error('Failed to fetch all users');
         }
-
         const fetchedAllUsers = await response.json();
-        console.log("Fetched all users data:", fetchedAllUsers);
         return fetchedAllUsers;
     } catch (error) {
         console.error('Error fetching all users:', error);
-        throw error;
     }
 };
 
-const UpdateUser = async() => {
-    try{
-        const fetchData = await fetch('http://localhost:8000/api/v1/users') 
-
-    }
-    catch(error){
-        throw new Error ("Failed to update user", error)
+const FetchSingleuser = async (id) => {
+    let User = await fetch(`http://localhost:8000/api/v1/users/p/${id}`, {
+        method: "get",
+        credentials: "include"
+    });
+    if (User.ok) {
+        User = await User.json();
+        return User;
+    } else {
+        console.error("Failed to fetch single User");
     }
 }
 
+const WhoAmI = async () => {
+    let User = await fetch(`http://localhost:8000/api/v1/users/whoami`, {
+        method: "get",
+        credentials: "include"
+    });
+    if (User.ok) {
+        User = await User.json();
+        return User;
+    } else {
+        console.error("Failed to fetch single User");
+    }
+}
+
+
+
+const UpdateUser = async ({ id, username, fullName, email, mobileNumber, role, degree, specialization, startYear, endYear, companyName, designation, startDate, currentlyWorking, endDate }) => {
+    let UpdateUser = await fetch(`http://localhost:8000/api/v1/admin/users/${id}`, {
+        method: "put",
+        body: JSON.stringify({
+            username,
+            fullName,
+            email,
+            mobileNumber,
+            role,
+            degree,
+            specialization,
+            startYear,
+            endYear,
+            companyName,
+            designation,
+            startDate,
+            currentlyWorking,
+            endDate,
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: "include"
+    });
+    if (UpdateUser.ok) {
+        await UpdateUser.json();
+        return UpdateUser;
+    } else {
+        console.error("Failed to update User");
+        return UpdateUser.status;
+    }
+}
 
 const UserDelete = async (id) => {
     let deleteUser = await fetch(`http://localhost:8000/api/v1/admin/users/${id}`, {
         method: "delete",
-       credentials: "include"
-
+        credentials: "include"
     });
     if (deleteUser.ok) {
-        await deleteUser.json(); // Parse the response JSON
-        // setUsers('')
+        await deleteUser.json(); 
+        return deleteUser;
     } else {
-        // Handle the error here
         console.error("Failed to delete User");
+        return deleteUser.status;
     }
 }
 
+const AvatarUpload = async(file) =>{
 
-export { Fetch, FetchAllUser, UserDelete };
+    const formData = new FormData();
+    formData.append('avatar', file);
+    console.log("userHook ", file)
+    let response = await fetch(`http://localhost:8000/api/v1/users/avatar`, {
+        method: "put",
+        body: formData,
+        credentials: "include"
+    });
+    console.log("userHook",response)
+    if(response.ok){
+        console.log("avatart uploaded successfully on cludnry ")
+        return response.json();
+        
+    }
+    else{
+        throw new Error("faild to upload profile pic")
+    }
+}
+
+export { Fetch, FetchAllUser, UserDelete, UpdateUser, FetchSingleuser, WhoAmI , AvatarUpload};
