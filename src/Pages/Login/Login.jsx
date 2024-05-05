@@ -15,66 +15,24 @@ export default function Login() {
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-
         let userdata = await Fetch({ email, password });
-        // const userdata = null
-        console.log("user data ", userdata)
-
         if (userdata.data.user.role === "Admin") {
             localStorage.setItem('user', JSON.stringify(userdata.data));
-
             navigate('/admin')
         } else {
             localStorage.setItem('user', JSON.stringify(userdata.data));
-
             navigate('/user')
         }
     }
 
-
-
-
-
-
-    //     const tostify = ({type, message}) => {
-    // {
-    //            ` toast.${type}('${message}', {
-    //             position: "bottom-right",
-    //             autoClose: 800,
-    //             hideProgressBar: false,
-    //             closeOnClick: true,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //             // transition: Bounce,
-    //             className: "md:positon-top-right"}
-    //         });`
-    //     }
-    // }
-
-    // const check = ()=> {
-    //         tostify("error", "there is some problem to solve")
-    // }
-
-
-
     const togglePasswordVisibility = () => {
-
         setShowPassword(!showPassword);
-
     };
-
 
     return (
         <>
             <div className=" p-8 mx-auto sm:w-max-sm min-w-sm md:w-max-md lg:max-w-md">
-                <div className="flex justify-center">
-                    <img
-                        alt=""
-                        className="h-14 w-14"
-                        src="https://ik.imagekit.io/pibjyepn7p9/Lilac_Navy_Simple_Line_Business_Logo_CGktk8RHK.png?ik-sdk-version=javascript-1.4.3&updatedAt=1649962071315" />
-                </div>
+               <span></span>
                 <h2 className=" mt-8 mb-10 mb:text-lg lg:text-3xl text-2xl font-extrabold text-gray-700">
                     Login To Your Account
                 </h2>

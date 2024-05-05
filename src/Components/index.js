@@ -48,6 +48,9 @@ import DisplayUserProfile from '../Pages/User/DisplayUserProfile.jsx'
 //  test  page
 import TestPage from '../Pages/testPage.jsx'
 
+// landing page 
+import LandingPage from '../Pages/LandingPage.jsx'
+
 
 
 
@@ -92,7 +95,9 @@ export {
     DisplayUserProfile,
 
     // test page
-    TestPage
+    TestPage,
 
+    // landing page
+    LandingPage
 }
 
