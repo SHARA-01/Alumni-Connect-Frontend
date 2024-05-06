@@ -3,6 +3,7 @@ import { RiLockPasswordLine } from "../Components/ReactIconsIndex";
 import InputField from './InputField';
 import { Register } from '../hooks/useRegister';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // import { useSearchParams } from 'react-router-dom';
 
@@ -24,15 +25,21 @@ function RegisterForm({ role }) {
     const [endYear, setEndYear] = useState('')
 
     const [companyName, setCompanyName] = useState('')
-    const [desination, setDesination] = useState('')
+    const [designation, setdesignation] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [currentlyWorking, setCurrentlyWorking] = useState('')
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
 
-        Register({ role, username, fullName, email, password, mobileNumber, degree, specialization, startYear, endYear, companyName, desination, startDate, endDate, currentlyWorking })
+       let response = await Register({ role, username, fullName, email, password, mobileNumber, degree, specialization, startYear, endYear, companyName, designation, startDate, endDate, currentlyWorking })
+       if(response?.statusCode === 201) {
+        toast.success(response?.message)
         naivgate('/admin/users')
+       }
+       else{
+        toast.error(response?.response?.message)
+       }
     }
 
     const togglePasswordVisibility = () => {
@@ -53,7 +60,7 @@ function RegisterForm({ role }) {
                         <InputField type="text" value={fullName} onChange={setFullName} placeholder='Full Name' required />
                         <InputField type="email" value={email} onChange={setEmail} placeholder='Email' required />
                         <InputField type="text" value={username} onChange={setUserName} placeholder='@username' required />
-                        <InputField type="text" value={mobileNumber} onChange={setMobileNumber} placeholder='Mobile Number' required />
+                        <InputField type="tel" value={mobileNumber} onChange={setMobileNumber} placeholder='Mobile Number' required />
                         <InputField type="text" value={""} placeholder='Linkdin Profile URL' />
                         <div className="flex justify-between w-auto ">
                             <InputField type={showPassword ? "text" : "password"} value={password} onChange={setPassword} placeholder='Password' required />
@@ -90,7 +97,7 @@ function RegisterForm({ role }) {
                             <div className='w-[97%] mx-auto '>
                                 <div className='flex space-x-3 space-y-8 mb-8 flex-wrap'>
                                     <InputField type="text" value={companyName} onChange={setCompanyName} placeholder='Company Name' inputClass='mt-8 ml-3' />
-                                    <InputField type="text" value={desination} onChange={setDesination} placeholder='Desination' />
+                                    <InputField type="text" value={designation} onChange={setdesignation} placeholder='designation' />
                                     <InputField type="text" value={startDate} onChange={setStartDate} placeholder='Joining Date' />
                                     <InputField type="text" value={endDate} onChange={setEndDate} placeholder='End Date' />
                                     <InputField type="text" value={currentlyWorking} onChange={setCurrentlyWorking} placeholder='Currtly Working' />

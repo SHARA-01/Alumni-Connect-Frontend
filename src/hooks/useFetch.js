@@ -10,10 +10,9 @@ const Fetch = async ({ email, password }) => {
         credentials: "include"
     });
     if (!response.ok) {
-        throw new Error('Failed To Fetch Data');
+        return {response:await response.json(), status:response.status , statusText:response.statusText};
     }
-    let fetchData = await response.json();
-    return fetchData;
+    return response.json();
 }
 
 const FetchAllUser = async (query) => {
@@ -26,12 +25,11 @@ const FetchAllUser = async (query) => {
             credentials: "include"
         });
         if (!response.ok) {
-            throw new Error('Failed to fetch all users');
+            return {response:await response.json(), status:response.status , statusText:response.statusText};
         }
-        const fetchedAllUsers = await response.json();
-        return fetchedAllUsers;
+        return response.json();
     } catch (error) {
-        console.error('Error fetching all users:', error);
+        return error;
     }
 };
 
@@ -41,10 +39,9 @@ const FetchSingleuser = async (id) => {
         credentials: "include"
     });
     if (User.ok) {
-        User = await User.json();
-        return User;
+        return User.json();
     } else {
-        console.error("Failed to fetch single User");
+        return {response:await User.json(), status:User.status , statusText:User.statusText};
     }
 }
 
@@ -54,10 +51,9 @@ const WhoAmI = async () => {
         credentials: "include"
     });
     if (User.ok) {
-        User = await User.json();
-        return User;
+        return User.json();
     } else {
-        console.error("Failed to fetch single User");
+        return {response:await User.json(), status:User.status , statusText:User.statusText};
     }
 }
 
@@ -88,11 +84,28 @@ const UpdateUser = async ({ id, username, fullName, email, mobileNumber, role, d
         credentials: "include"
     });
     if (UpdateUser.ok) {
-        await UpdateUser.json();
-        return UpdateUser;
+        return UpdateUser.json();
     } else {
-        console.error("Failed to update User");
-        return UpdateUser.status;
+        return {response:await UpdateUser.json(), status:UpdateUser.status , statusText:UpdateUser.statusText};
+    }
+}
+const UpdateAccount = async ({ fullName, email, mobileNumber}) => {
+    let Update = await fetch(`http://localhost:8000/api/v1/users/update-account`, {
+        method: "put",
+        body: JSON.stringify({
+           fullName,
+            email,
+            mobileNumber,
+           }),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: "include"
+    });
+    if (Update.ok) {
+        return Update.json();
+    } else {
+        return {response:await Update.json(), status:Update.status , statusText:Update.statusText};
     }
 }
 
@@ -102,11 +115,9 @@ const UserDelete = async (id) => {
         credentials: "include"
     });
     if (deleteUser.ok) {
-        await deleteUser.json(); 
-        return deleteUser;
+        return deleteUser.json();
     } else {
-        console.error("Failed to delete User");
-        return deleteUser.status;
+        return {response:await deleteUser.json(), status:deleteUser.status , statusText:deleteUser.statusText};
     }
 }
 
@@ -114,21 +125,45 @@ const AvatarUpload = async(file) =>{
 
     const formData = new FormData();
     formData.append('avatar', file);
-    console.log("userHook ", file)
     let response = await fetch(`http://localhost:8000/api/v1/users/avatar`, {
         method: "put",
         body: formData,
         credentials: "include"
     });
-    console.log("userHook",response)
     if(response.ok){
-        console.log("avatart uploaded successfully on cludnry ")
         return response.json();
-        
     }
     else{
-        throw new Error("faild to upload profile pic")
+        return {response:await response.json(), status:response.status , statusText:response.statusText};
     }
 }
 
-export { Fetch, FetchAllUser, UserDelete, UpdateUser, FetchSingleuser, WhoAmI , AvatarUpload};
+const passwordChange = async({ oldPassword, newPassword }) => {
+    let response = await fetch('http://localhost:8000/api/v1/users/change-password', {
+        method: 'put',
+        body: JSON.stringify({oldPassword, newPassword}),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: "include"
+    });
+    if (!response.ok) {
+        return {response:await response.json(), status:response.status , statusText:response.statusText};
+    }
+    return response.json();
+    
+}
+
+const logOut = async()=>{
+    let response = await fetch('http://localhost:8000/api/v1/users/logout', {
+        method: 'post',
+        credentials: "include"
+    });
+    if (!response.ok) {
+        return {response:await response.json(), status:response.status , statusText:response.statusText};
+    }
+    return response.json();
+
+}
+
+export { Fetch, FetchAllUser, UserDelete, UpdateUser, FetchSingleuser, WhoAmI , AvatarUpload, passwordChange, logOut, UpdateAccount};

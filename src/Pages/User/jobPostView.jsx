@@ -30,19 +30,14 @@ function JobPostView() {
                         </li>
                         <li>{
                             jobInfo && jobInfo.posted_by.role != "Admin" ? <Link to={`/user/${jobInfo && jobInfo.posted_by.username}`}>{`PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''}</Link> : `PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''   
-                            
                             }
-                            
                         </li>
                     </ul>
-
                 </h3>
-
                 <h5 className='text-md text-gray-700 font-semibold '>
                     {jobInfo && jobInfo.job_description || ''}
                 </h5> 
             </div>
-
         </div>
     )
 }

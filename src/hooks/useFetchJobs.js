@@ -9,10 +9,9 @@ const JobPostCreate = async({title, company, location, jobDescription}) => {
         credentials : "include"
     });
     if (!AddPost.ok) {
-        throw new Error('Failed To Fetch Data');
+        return {response:await AddPost.json(), status:AddPost.status , statusText:AddPost.statusText};
     }
-    let fetchData = await AddPost.json();
-    return fetchData;
+    return AddPost.json();
     
 }
 
@@ -22,22 +21,20 @@ const GetJobInfo = async(id)=> {
         credentials : "include"
     });
     if (!response.ok) {
-        throw new Error('Failed To Fetch job info ');
+        return {response:await response.json(), status:response.status , statusText:response.statusText};
     }
-    let fetchData = await response.json();
-    return fetchData;
+    return response.json();
     
 }
 const GetAllJobPost = async() => {
-    let GetPost = await fetch('http://localhost:8000/api/v1/jobs', {
+    let GetPost = await fetch(' ', {
         method: 'get',
         credentials : "include"
     });
     if (!GetPost.ok) {
-        throw new Error('Failed To Fetch Data');
+        return {response:await GetPost.json(), status:GetPost.status , statusText:GetPost.statusText};
     }
-    let fetchData = await GetPost.json();
-    return fetchData;
+    return GetPost.json();
     
 }
 
@@ -46,9 +43,10 @@ const ActivePost = async(id) => {
         method: 'put',
         credentials: "include"
     });
-    if(!checkIsActive.ok){
-        throw new Error("falid to active post", checkIsActive)
+    if (!checkIsActive.ok) {
+        return {response:await checkIsActive.json(), status:checkIsActive.status , statusText:checkIsActive.statusText};
     }
+    return checkIsActive.json();
 }
 
 const DeactivePost = async(id) => {
@@ -56,9 +54,10 @@ const DeactivePost = async(id) => {
         method: 'put',
         credentials: "include"
     });
-    if(!checkIsActive.ok){
-        throw new Error("falid to deactive post", checkIsActive)
+    if (!checkIsActive.ok) {
+        return {response:await checkIsActive.json(), status:checkIsActive.status , statusText:checkIsActive.statusText};
     }
+    return checkIsActive.json();
 }
 
 
@@ -67,10 +66,10 @@ const DeletePost = async(id) => {
         method: 'delete',
         credentials: "include"
     });
-    if(!deletePost.ok){
-        throw new Error("falid to delete post", deletePost)
+    if (!deletePost.ok) {
+        return {response:await deletePost.json(), status:deletePost.status , statusText:deletePost.statusText};
     }
-    return deletePost;
+    return deletePost.json();
 }
 
 

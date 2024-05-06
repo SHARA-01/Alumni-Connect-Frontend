@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { FiEdit } from "../Components/ReactIconsIndex"
 import InputField from './InputField'
-import { UpdateUser, WhoAmI } from '../hooks/useFetch'
+import { UpdateAccount, WhoAmI } from '../hooks/useFetch'
 import { formatDate } from '../hooks/UseInfo'
-// import { Register } from '../hooks/useRegister';
-// import { useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify'
+
 
 
 function ProfileCard() {
@@ -58,9 +58,15 @@ function ProfileCard() {
     }, [userData])
 
 
-    const handleSubmit = () => {
-        UpdateUser({id:userData._id, role:userData.role, username, fullName, email, mobileNumber , degree, specialization, startYear, endYear, companyName, desination, startDate , endDate , currentlyWorking })
+    const handleSubmit = async() => {
+            let response = await UpdateAccount({ fullName, email, mobileNumber});
+           if(response?.statusCode === 200){
+            toast.success(response?.message)
+           }else{
+            toast.error(response?.response?.message)
+           }
     }
+  
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword)
     }
@@ -68,6 +74,7 @@ function ProfileCard() {
     const activeField = () => {
         setActive(!active)
     }
+
     console.log(UserData)
     return (
         <div className='w-[97%] bg-gray-200 rounded-lg mx-auto pb-5 bg-blur '>
@@ -86,9 +93,9 @@ function ProfileCard() {
                     <ul className='flex justify-between space-y-8 mb-8 flex-wrap'>
                         <li><InputField type="text" value={fullName} onChange={setFullName} placeholder='Full Name' inputClass='mt-8' required disabled={active} /></li>
                         <li><InputField type="email" value={email} onChange={setEmail} placeholder='Email' required disabled={active} /></li>
-                        <li><InputField type="text" value={username} onChange={setUserName} placeholder='@username' required disabled={active} /></li>
+                        <li><InputField type="text" value={username} onChange={setUserName} placeholder='@username' required disabled /></li>
                         <li><InputField type="text" value={mobileNumber} onChange={setMobileNumber} placeholder='Mobile Number' required disabled={active} /></li>
-                        <li><InputField type="text" value={""} placeholder='Linkdin Profile URL' disabled={active} /></li>
+                        <li><InputField type="text" value={""} placeholder='Linkdin Profile URL' disabled /></li>
                         {/* <li className='flex'>
                             <li><InputField type={showPassword ? "text" : "password"} value={password} onChange={setPassword} placeholder='Password' required disabled={active} /></li>
                             <li><RiLockPasswordLine size={28} onClick={togglePasswordVisibility} className='text-gray-700 my-auto cursor-pointer  mt-3 z-10  -ml-10' disabled={active} /></li>
@@ -116,11 +123,11 @@ function ProfileCard() {
                     </div>
                     <div className='w-[97%] mx-auto px-5'>
                         <ul className='flex  space-y-8 mb-8 justify-between flex-wrap'>
-                            <li><InputField type="text" value={companyName} onChange={setCompanyName} placeholder='Company Name' inputClass='mt-8' disabled={active} /></li>
-                            <li><InputField type="text" value={desination} onChange={setDesination} placeholder='Desination' disabled={active} /></li>
-                            <li><InputField type="text" value={startDate} onChange={setStartDate} placeholder='Joining Date' disabled={active} /></li>
-                            <li><InputField type="text" value={endDate} onChange={setEndDate} placeholder='End Date' disabled={active} /></li>
-                            <li><InputField type="text" value={currentlyWorking} onChange={setCurrentlyWorking} placeholder='Currtly Working' disabled={active} /></li>
+                            <li><InputField type="text" value={companyName} onChange={setCompanyName} placeholder='Company Name' inputClass='mt-8' disabled /></li>
+                            <li><InputField type="text" value={desination} onChange={setDesination} placeholder='Desination' disabled /></li>
+                            <li><InputField type="text" value={startDate} onChange={setStartDate} placeholder='Joining Date' disabled /></li>
+                            <li><InputField type="text" value={endDate} onChange={setEndDate} placeholder='End Date' disabled /></li>
+                            <li><InputField type="text" value={currentlyWorking} onChange={setCurrentlyWorking} placeholder='Currtly Working' disabled /></li>
                         </ul>
                     </div>
                 </div>

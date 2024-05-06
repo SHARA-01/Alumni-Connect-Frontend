@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MdPostAdd, TbEdit, RiDeleteBin6Line, FaRegWindowClose, BiNotification } from '../../Components/ReactIconsIndex'
 import { WhoAmI } from '../../hooks/useFetch'
 import { DeletePost, GetAllJobPost } from '../../hooks/useFetchJobs'
+import { toast } from 'react-toastify'
 
 function PostedJobs() {
     const [userData, setUserData] = useState('')
@@ -31,9 +32,15 @@ function PostedJobs() {
     }
 
 
-    const deletePost = (id) => {
-        DeletePost(id)
-        setJobId(id)
+    const deletePost = async (id) => {
+        let response = await DeletePost(id)
+        if (response?.statusCode === 200) {
+            toast.success("Post Deleted Successfully.")
+            setJobId(id)
+
+        } else {
+            toast.error(response?.response?.message)
+        }
     }
 
     return (

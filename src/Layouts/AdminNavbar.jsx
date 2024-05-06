@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import { GoHome } from '../Components/ReactIconsIndex'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 
 
 function AdminNavbar({User}) {
@@ -30,7 +30,6 @@ function AdminNavbar({User}) {
     return (
         <div>
             <div id='Navbar' className='flex  w-[97%] mt-4 text-[#344767]'>
-
                 <div className='w-full m-1'>
                     <div className='w-full flex '>
                         <div className='p-1'><GoHome /></div>
@@ -43,24 +42,21 @@ function AdminNavbar({User}) {
 
                 <div className='py-[6px] mx-4 justify-end cursor-pointer  '>
                     <img
-                        onMouseEnter={RightMenuVisible}
+                        onClick={()=> setMenuvisible(!menuvisible)}
                         // onMouseLeave={RightMenuHide}
                         alt=""
-                        className={`h-11 w-11 rounded-full absolute  z-[1] `}
-                        src={User && User.avatar || "!"} />
+                        className={`h-11 w-11 rounded-full absolute  z-[10] `}
+                        src={User && User?.avatar || "!"} />
                     {
-                        menuvisible ? <div onMouseLeave={RightMenuHide} className='-mt-2  rounded-md w-[7%] absolute p-3 border-b-2  border-r-2 border-gray-200 -mx-[31px] bg-blur  -z-10'>
-                           
+                        menuvisible ? <div onMouseLeave={RightMenuHide} className='-mt-2  bg-white-blur rounded-md w-[7%] absolute p-3 border-b-2  border-r-2 border-gray-200 -mx-[31px] bg-blur '>
                             <ul className='space-y-2 pt-[3rem]'>
                                 <li className=' mx-auto space-y-3 w-[90%]'>
-                                    <span className=' w-full text-[#344767] text-md font-semibold px-auto active:text-gray-500'>Profile</span>
+                                    <span className=' w-full text-[#344767] text-md font-semibold px-auto active:text-gray-500 hover:text-blue-500'><Link to='profile'>Profile</Link></span>
                                 </li>
                                 <li onClick={logout} className=' mx-auto space-y-3 w-[90%] '>
-                                    <span className=' w-full text-[#344767] text-md font-semibold px-auto active:text-gray-500'>Logout</span>
+                                    <span className=' w-full text-[#344767] text-md font-semibold px-auto active:text-gray-500 hover:text-blue-500'>Logout</span>
                                 </li>
-
                             </ul>
-
                         </div>
                             :
                             <div className='bg-white'>

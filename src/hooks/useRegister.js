@@ -1,23 +1,19 @@
-const Register = async ({role,username, fullName, email, mobileNumber , degree, specialization, startYear, endYear, companyName, desination, startDate , endDate , currentlyWorking }) => {
+const Register = async ({role,username, fullName, email,password, mobileNumber , degree, specialization, startYear, endYear, companyName, designation, startDate , endDate , currentlyWorking }) => {
 
     let response = await fetch('http://localhost:8000/api/v1/admin/users', {
         method: 'post',
         body: JSON.stringify(
-            {role,username, fullName, email, mobileNumber , degree, specialization, startYear, endYear, companyName, desination, startDate , endDate , currentlyWorking }
+            {role,username, fullName, email, mobileNumber ,password, degree, specialization, startYear, endYear, companyName, designation, startDate , endDate , currentlyWorking }
         ),
         headers: {
             'Content-Type': 'application/json'
         },
         credentials: "include"
     });
-
     if (!response.ok) {
-        throw new Error('Failed To Fetch Data');
+        return {response:await response.json(), status:response.status , statusText:response.statusText};
     }
-
-    let fetchData = await response.json();
-    console.log("fetch function working ", fetchData);
-    return fetchData;
+    return response.json();
 
 }
 

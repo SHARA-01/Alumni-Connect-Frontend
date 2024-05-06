@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
 import { MdPostAdd, TbEdit, RiDeleteBin6Line, FaRegWindowClose, BiNotification } from '../../Components/ReactIconsIndex'
-import { CreatePost, ToggleButton } from '../../Components/index'
+import { CreatePost, ToggleButton, toast } from '../../Components/index'
 import { ActivePost, GetAllJobPost, DeletePost, DeactivePost } from '../../hooks/useFetchJobs'
 
-import { Tooltip } from 'react-tooltip'
-import { json } from 'react-router-dom'
 
 
 
@@ -35,15 +33,41 @@ const JobPost = () => {
     const CreatePostVisble = () => {
         setCreatePost(!createPost)
         setPostRequestVisible(!postRequestVisible)
+
     }
     const RequestPostVisble = () => {
         setPostRequestVisible(!postRequestVisible)
+        setJobs('')
     }
 
-    const deletePost = (id) => {
-        DeletePost(id)
+    const deletePost = async(id) => {
+       let response = await DeletePost(id)
+       if(response?.statusCode === 200){
+        toast.success("Post Deleted SuccessFully")
+       }
         setJobId(id)
     }
+
+    const showToast = (message) => {
+        toast.success(message);
+    };
+
+    const handleActive = async (id) => {
+        const fetch = await ActivePost(id)
+        if (fetch?.statusCode === 201) {
+            setJobs('');
+            showToast("Post Active Successfully");
+        }
+    }
+
+    const handleDeActive = async (id) => {
+        let fetch = await DeactivePost(id)
+        if (fetch?.statusCode === 201) {
+            setJobs('');
+           return  showToast("Post DeActive Successfully");
+        }
+    }
+
 
     return (
         <div className='min-h-[100vh]'>
@@ -58,7 +82,7 @@ const JobPost = () => {
                                     <li>
                                         <span className='w-auto inline-flex text-xl text-white font-semibold py-3 px-3 cursor-pointer'>
                                             {postRequestVisible ? createPost ? "" : <FaRegWindowClose onClick={RequestPostVisble} size={29} className='hover:text-purple-800' /> : <BiNotification onClick={RequestPostVisble} size={29} className='hover:text-purple-800' />}
-                                        </span>
+                                            </span>
                                     </li>
                                     <li>
                                         <span className='w-auto inline-flex text-xl text-white font-semibold py-3 px-3 cursor-pointer'>
@@ -74,7 +98,7 @@ const JobPost = () => {
                     </div>
 
                     {createPost ? <div className='w-[80%] h-auto bg-gray-200 rounded-lg mx-auto my-10 bg-blur flex  flex-wrap '>
-                        <CreatePost CreatePostDivhide={setCreatePost} hideNewpostdiv={setPostRequestVisible} />
+                        <CreatePost CreatePostDivhide={setCreatePost} hideNewpostdiv={setPostRequestVisible} setsState={setJobs} />
 
                     </div>
                         : <div>
@@ -108,12 +132,13 @@ const JobPost = () => {
                                                             {job.posted_by.full_name}
                                                         </td>
                                                         <td className='text-gray-500 space-x-3 font-bold flex text-2xl my-auto  p-3'>
-                                                            <ul>
-                                                                <li onClick={() => { ActivePost(job._id), setJobId(job._id) }} >
+                                                            <ul>{
+                                                                job?.posted_by?.role === "Admin" ? '' : <li onClick={() => { handleActive(job._id), setJobId(job._id) }} >
                                                                     {<ToggleButton is_active={job.is_active} />}
                                                                 </li>
+                                                            }
                                                             </ul>
-                                                            {job && job.role === "Admin" ? < RiDeleteBin6Line onClick={() => deletePost(job._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl' /> : ''}
+                                                            {job?.posted_by?.role === "Admin" ? < RiDeleteBin6Line onClick={() => deletePost(job._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl' /> : ''}
                                                         </td>
                                                     </tr>
                                                 ))
@@ -128,12 +153,14 @@ const JobPost = () => {
                                                             {job.posted_by.full_name}
                                                         </td>
                                                         <td className='text-gray-500 space-x-3 font-bold flex text-2xl my-auto  p-3'>
-                                                            <ul>
-                                                                <li onClick={() => { DeactivePost(job._id), setJobId(job._id) }} >
-                                                                    {<ToggleButton is_active={job.is_active} />}
-                                                                </li>
+                                                            <ul>{
+                                                                job?.posted_by?.role === "Admin" ? '' :  <li onClick={() => { handleDeActive(job._id), setJobId(job._id) }} >
+                                                                {<ToggleButton is_active={job.is_active} />}
+                                                            </li> 
+                                                                }
+                                                               
                                                             </ul>
-                                                            {job && job.role === "Admin" ? < RiDeleteBin6Line onClick={() => deletePost(job._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl' /> : ''}
+                                                            {job?.posted_by?.role === "Admin" ? < RiDeleteBin6Line onClick={() => deletePost(job._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl' /> : ''}
                                                         </td>
                                                     </tr>
                                                 ))

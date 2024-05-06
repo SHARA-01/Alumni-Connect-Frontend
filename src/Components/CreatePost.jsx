@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill snow theme styles
 import { JobPostCreate } from '../hooks/useFetchJobs'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
-const CreatePost = ({ CreatePostDivhide, hideNewpostdiv, Title, Company, Location, JobDescription, }) => {
+const CreatePost = ({ CreatePostDivhide, hideNewpostdiv, Title, Company, Location, JobDescription, setState, role }) => {
     const navigate = useNavigate();
     const [title, setTitle] = useState(Title || '')
     const [company, setCompany] = useState(Company || '')
@@ -20,7 +21,16 @@ const CreatePost = ({ CreatePostDivhide, hideNewpostdiv, Title, Company, Locatio
 
     const AddNewPost = async() => {
        let postData =  await JobPostCreate({ title, company, location, jobDescription });
-        console.log(postData.status)
+       if(postData?.statusCode === 201){
+        toast.success(postData?.message)
+        role? navigate('/user'): ''
+        CreatePostDivhide(false)
+        hideNewpostdiv(false)
+        setState('')
+       }
+       else{
+        toast.error(postData?.response?.message)
+       }
     }
 
     const convertToPlainText = (data) => {

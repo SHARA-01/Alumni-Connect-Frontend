@@ -50,14 +50,18 @@ import TestPage from '../Pages/testPage.jsx'
 
 // landing page 
 import LandingPage from '../Pages/LandingPage.jsx'
+import { toast } from 'react-toastify'
 
-
+// route
+import PrivateRouterAll from '../router/PrivateRouterALL.jsx'
+import LoginHandle from '../router/LoginHandle.jsx'
 
 
 
 export {
     // main route
     Routess,
+    PrivateRouterAll,
 
     // admin
     Sidebar,
@@ -98,6 +102,9 @@ export {
     TestPage,
 
     // landing page
-    LandingPage
+    LandingPage,
+    LoginHandle,
+    toast
+
 }
 

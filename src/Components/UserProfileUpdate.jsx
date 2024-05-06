@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import InputField from './InputField';
 import { UpdateUser } from '../hooks/useFetch';
+import { toast } from 'react-toastify';
 
 
 // import { act } from 'react-dom/test-utils';
@@ -30,11 +31,16 @@ function UserProfileForAdmin({ id, Role, fullname, Email, userName, MobileNumber
         setCurrentlyWorking(!currentlyWorking);
     }
 
-    const updateUser = () => {
-        if(role === "Admin" ) role = "Alumni"
-        UpdateUser({ id, role, username, fullName, email, mobileNumber, degree, specialization, startYear, endYear, companyName, designation, startDate, currentlyWorking, endDate })
-        setUsers('')
-        // hideUpdateDiv(false)
+    const updateUser = async () => {
+        if (role === "Admin") role = "Alumni"
+        let response = await UpdateUser({ id, role, username, fullName, email, mobileNumber, degree, specialization, startYear, endYear, companyName, designation, startDate, currentlyWorking, endDate })
+        if (response.statusCode === 200) {
+            toast.success(response?.message)
+            setUsers('')
+        }
+        else {
+            toast.error(response?.response?.message)
+        }
     }
 
     return (

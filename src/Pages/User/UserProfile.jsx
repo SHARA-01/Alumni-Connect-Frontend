@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { PiStudent } from '../../Components/ReactIconsIndex'
-import { InputField, ProfileCard } from '../../Components/index'
-import { AvatarUpload, UpdateUser, WhoAmI } from '../../hooks/useFetch'
+import { InputField, ProfileCard, toast } from '../../Components/index'
+import { AvatarUpload, UpdateAccount, UpdateUser, WhoAmI } from '../../hooks/useFetch'
 
 
 function UserProfile() {
@@ -38,17 +38,15 @@ function UserProfile() {
     }, [])
 
 
-    const UpdateProfile = (id) => {
-        let fetch = async () => {
-            let response = await UpdateUser({ id, username, fullName, email, mobileNumber, role , });
-            // if (response.ok) setEditActive(false)
-        }
-        fetch();
-    }
-
+   
 
     const handleUpload = async () => {
         const response = await AvatarUpload(setedfile);
+        if(response?.statusCode === 200){
+            toast.success(response?.message)
+        }else{
+            toast.error(response?.response?.message)
+        }
     };
 
     return (

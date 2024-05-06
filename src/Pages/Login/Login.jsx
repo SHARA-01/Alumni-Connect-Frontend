@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fixedInputClass, InputField } from '../../Components/index'
+// import { fixedInputClass, InputField } from '../../Components/index' 
 import { useNavigate } from "react-router-dom";
 import { RiLockPasswordLine } from '../../Components/ReactIconsIndex'
 import { ToastContainer, toast } from "react-toastify";
@@ -16,14 +16,23 @@ export default function Login() {
 
     const handleSubmit = async () => {
         let userdata = await Fetch({ email, password });
-        if (userdata.data.user.role === "Admin") {
-            localStorage.setItem('user', JSON.stringify(userdata.data));
-            navigate('/admin')
-        } else {
-            localStorage.setItem('user', JSON.stringify(userdata.data));
-            navigate('/user')
-        }
+        console.log("thsis is console code",userdata.message)
+        if(userdata?.statusCode === 200){
+            toast.success(userdata?.message,{
+                position: "top-center",
+            });
+              if (userdata.data.user.role === "Admin") {
+                localStorage.setItem('user', JSON.stringify(userdata.data));
+                navigate('/admin')
+            } else {
+                localStorage.setItem('user', JSON.stringify(userdata.data));
+                navigate('/user')
+            }
+        }else {
+            toast.error(userdata?.response.message);
+            }
     }
+       
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -39,20 +48,23 @@ export default function Login() {
                 <div className="w-full flex">
                     <ul className="flex flex-col space-y-5 w-full">
                         <li className="">
-                            <input type="email" name="email" className={`${fixedInputClass} lg:text-xl`} placeholder="Email" value={email} onChange={(e) => setemail(e.target.value)} required />
+                           
+                        <input type='email' name="email" className={`relative rounded-md w-full px-3 py-2 border border-gray-300 placeholder-gray-500  focus:outline-none focus:ring-blue-500 focus:border-blue-500  sm:text-sm text-gray-600  lg:text-xl `} placeholder="Email" value={email} onChange={(e) => setemail(e.target.value)} required />
+                            {/* <input type="email" name="email" className={`${fixedInputClass} lg:text-xl focus:ring-blue-500`} placeholder="Email"  /> */}
                         </li>
                         <li className="flex justify-between w-auto md:h-lg lg:text-xl">
-                            <input type={showPassword ? "text" : "password"} name="password" className={`relative rounded-md w-full px-3 py-2 border border-gray-300 placeholder-gray-500  focus:outline-none focus:ring-purple-500 focus:border-purple-500  sm:text-sm text-gray-600  lg:text-xl `} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type={showPassword ? "text" : "password"} name="password" className={`relative rounded-md w-full px-3 py-2 border border-gray-300 placeholder-gray-500  focus:outline-none focus:ring-blue-500 focus:border-blue-500  sm:text-sm text-gray-600  lg:text-xl `} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                             <RiLockPasswordLine size={28} onClick={togglePasswordVisibility} className='text-gray-700 my-auto cursor-pointer   z-10 bg-white -ml-12 mx-2' />
                         </li>
                         <li>
-                            <button onClick={handleSubmit} className="md:text-xl relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 mt-5"
+                            <button onClick={()=>{ handleSubmit()}} className="md:text-xl relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-5"
                             >Login </button>
                         </li>
                     </ul>
                 </div>
             </div>
-            <ToastContainer />
+            
+
         </>
     )
 }

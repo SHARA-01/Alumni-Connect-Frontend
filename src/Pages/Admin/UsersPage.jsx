@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { FetchAllUser, UserDelete, UpdateUser } from '../../hooks/useFetch'
 import { activeStatus, formatDate } from '../../hooks/UseInfo'
 import { TbEdit, RiDeleteBin6Line, PiStudent, FaRegWindowClose } from '../../Components/ReactIconsIndex'
-import { UserProfileUpdateAdmin, UserProfileAdmin } from '../../Components/index'
+import { UserProfileUpdateAdmin, UserProfileAdmin, toast } from '../../Components/index'
 
 
 export default function Users() {
@@ -11,16 +11,17 @@ export default function Users() {
     const [userId, setUserId] = useState(null)
     const [showProfile, setShowProfile] = useState(false)
 
+    let localData = JSON.parse(localStorage.getItem('user'))
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const fetchedData = await FetchAllUser();
                 setUsers(fetchedData.data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                toast.error("something went wrong please reload page or try again some time later.")
             }
         };
-        if (users.length === 0) {
+        if (users?.length === 0) {
             fetchData();
             setShowProfile(false)
             setShowUpdatediv(false)
@@ -29,7 +30,13 @@ export default function Users() {
 
     const deleteUser = async (id) => {
         const response = await UserDelete(id);
-        setUsers('')
+        if (response.statusCode === 200) {
+            toast.success(response?.message)
+            setUsers('')
+        }
+        else{
+            toast.error(response?.response?.message)
+        }
     }
 
     const CheckSpecificUser = (id) => {
@@ -89,12 +96,16 @@ export default function Users() {
                                                     {formatDate(user.createdAt)}
                                                 </td>
                                                 <td className='text-gray-500 space-x-3 text-center font-bold my-auto flex text-2xl w-[10%] p-3'>
-                                                    <RiDeleteBin6Line onClick={() => deleteUser(user._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl cursor-pointer' />
+                                                    {
+                                                      localData?.user?._id === user._id ? ' ':
+                                                      <RiDeleteBin6Line onClick={() => deleteUser(user._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl cursor-pointer' />
+                                                    }
+                                                    
                                                 </td>
 
                                             </tr>
-                                            <tr>
-                                                {showProfile && user._id == userId ? <UserProfileAdmin imgurl={user.avatar} setState={setShowProfile} fullname={user.full_name} Email={user.email} userName={user.username} MobileNumber={user.mobile_number} Degree={user.graduation_details ? user.graduation_details.degree :null} Specialization={user.graduation_details ? user.graduation_details.specialization : null}
+                                            <tr >
+                                                {showProfile && user._id == userId ? <UserProfileAdmin imgurl={user.avatar} setState={setShowProfile} fullname={user.full_name} Email={user.email} userName={user.username} MobileNumber={user.mobile_number} Degree={user.graduation_details ? user.graduation_details.degree : null} Specialization={user.graduation_details ? user.graduation_details.specialization : null}
                                                     StartYear={user.graduation_details ? user.graduation_details.start_year : null} EndYear={user.graduation_details ? user.graduation_details.end_year : null} CompanyName={user.company_details ? user.company_details.company_name : null} Desination={user.company_details ? user.company_details.designation : null} StartDate={user.company_details ? user.company_details.start_date : null} EndDate={user.company_details ? user.company_details.end_date : null} /> : ''
                                                 }
                                             </tr>

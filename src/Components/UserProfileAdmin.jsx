@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { formatDate } from '../hooks/UseInfo'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
+import { Link } from 'react-router-dom'
 
 function UserProfileAdmin({ fullname, Email, userName, MobileNumber, Degree, Specialization, StartYear, EndYear, CompanyName, Desination, StartDate, EndDate, CurrentlyWorking, imgurl, setState }) {
     const [imgError, setImgError] = useState(false)
@@ -47,20 +48,8 @@ function UserProfileAdmin({ fullname, Email, userName, MobileNumber, Degree, Spe
                             <td>: {StartYear || `-`}</td>
                             <td>: {EndYear || `-`}</td>
                         </td>
-                    </tr> <tr className='flex  space-x-4'>
-                        <td className='flex flex-col text-gray-800 font-semibold'>
-                            <td>Company Name</td>
-                            <td>Desination</td>
-                            <td>Start date</td>
-                            <td>End date</td>
-                        </td>
-                        <td className='flex flex-col  text-gray-600 font-semibold '>
-                            <td>: {CompanyName || `-`}</td>
-                            <td>: {Desination || `-`}</td>
-                            <td>: {StartDate ? formatDate(StartDate) : `-`}</td>
-                            <td>: {EndDate ? formatDate(EndDate) : `-`}</td>
-                        </td>
-                    </tr>
+                    </tr> 
+                    <button className='bg-blue-500 rounded-md text-white font-semibold px-5 h-[14vh] my-auto'><Link to={`/admin/users/${userName}`}>More</Link></button>
                 </table>
             </div>
         </div>

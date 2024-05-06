@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { FetchSingleuser } from '../../hooks/useFetch';
 
 function DisplayUserProfile() {
-
     const { id } = useParams();
     const [userInfo, setUserInfo] = useState('');
     const [ImgError, setImgError] = useState(false);
@@ -11,15 +10,11 @@ function DisplayUserProfile() {
         const fetch = async () => {
             let response = await FetchSingleuser(id);
             setUserInfo(response.data)
-            console.log(response.statusCode)
         }
-        
         if (userInfo == '') {
             fetch();
         }
     })
-
-
 
     return (
         <div className='w-full py-5 min-h-[65vh]' >
@@ -34,7 +29,6 @@ function DisplayUserProfile() {
                                { userInfo && userInfo.full_name ? <span className='px-10 mx-auto border-4 rounded-full justify-center text-center text-[5rem] capitalize' > {userInfo.full_name .charAt(0)} </span> : "#"}
                             </div>
                     }
-                       
                     </li>
                     <ul className=' w-3/4 pb-2'>
                         <li className=' mx-auto px-10 py-2'>{
@@ -47,7 +41,6 @@ function DisplayUserProfile() {
                                 <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> Mobile No.:  </span> <span className='align-middle'> {userInfo.mobile_number} </span> </li>
                             </ul> : ''
                         }
-
                         </li>
                         <li className=' mx-auto px-10 py-2'>
                             {
@@ -59,7 +52,6 @@ function DisplayUserProfile() {
                                     <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> End year:  </span> <span className='align-middle'> {userInfo.graduation_details.end_year} </span> </li>
                                 </ul> : ''
                             }
-
                         </li>
                         <li className=' mx-auto px-10 py-2'>
                             {

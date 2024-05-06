@@ -1,10 +1,10 @@
 import React from 'react'
-import CreatePost, {} from '../../Components/CreatePost'
+import CreatePost, { } from '../../Components/CreatePost'
 
 function CreateJobPost() {
   return (
     <div>
-<CreatePost />
+      <CreatePost role="User"/>
     </div>
   )
 }
