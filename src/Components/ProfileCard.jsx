@@ -23,10 +23,10 @@ function ProfileCard() {
     }, [userData])
 
     const [role, setRole] = useState('')
-    const [username, setUserName] = useState( '')
-    const [fullName, setFullName] = useState( '')
-    const [email, setEmail] = useState( '')
-    const [mobileNumber, setMobileNumber] = useState( '')
+    const [username, setUserName] = useState('')
+    const [fullName, setFullName] = useState('')
+    const [email, setEmail] = useState('')
+    const [mobileNumber, setMobileNumber] = useState('')
     const [degree, setDegree] = useState('')
     const [specialization, setSpecialization] = useState('')
     const [startYear, setStartYear] = useState('')
@@ -37,6 +37,7 @@ function ProfileCard() {
     const [endDate, setEndDate] = useState('')
     const [currentlyWorking, setCurrentlyWorking] = useState('')
     const [active, setActive] = useState(true)
+    const [companyDetailsFieldHandle, setCompanyField] = useState(true)
 
     useEffect(() => {
         if (userData) {
@@ -49,24 +50,24 @@ function ProfileCard() {
             setSpecialization(userData?.graduation_details?.specialization || '')
             setStartYear(userData?.graduation_details?.start_year || '')
             setEndYear(userData?.graduation_details?.end_year || '')
-            setCompanyName(userData?.company_details?.company_name  || '')
-            setDesination(userData?.company_details?.designation  || '')
+            setCompanyName(userData?.company_details?.company_name || '')
+            setDesination(userData?.company_details?.designation || '')
             setStartDate(userData && formatDate(userData?.company_details?.start_date) || '')
-            setEndDate(userData && formatDate(userData?.company_details?.end_date)  || '')
-            setCurrentlyWorking(userData?.company_details?.currently_working  || false)
+            setEndDate(userData && formatDate(userData?.company_details?.end_date) || '')
+            setCurrentlyWorking(userData?.company_details?.currently_working || false)
         }
     }, [userData])
 
 
-    const handleSubmit = async() => {
-            let response = await UpdateAccount({ fullName, email, mobileNumber});
-           if(response?.statusCode === 200){
+    const handleSubmit = async () => {
+        let response = await UpdateAccount({ fullName, email, mobileNumber });
+        if (response?.statusCode === 200) {
             toast.success(response?.message)
-           }else{
+        } else {
             toast.error(response?.response?.message)
-           }
+        }
     }
-  
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword)
     }
@@ -74,6 +75,7 @@ function ProfileCard() {
     const activeField = () => {
         setActive(!active)
     }
+
 
     console.log(UserData)
     return (
@@ -95,11 +97,6 @@ function ProfileCard() {
                         <li><InputField type="email" value={email} onChange={setEmail} placeholder='Email' required disabled={active} /></li>
                         <li><InputField type="text" value={username} onChange={setUserName} placeholder='@username' required disabled /></li>
                         <li><InputField type="text" value={mobileNumber} onChange={setMobileNumber} placeholder='Mobile Number' required disabled={active} /></li>
-                        <li><InputField type="text" value={""} placeholder='Linkdin Profile URL' disabled /></li>
-                        {/* <li className='flex'>
-                            <li><InputField type={showPassword ? "text" : "password"} value={password} onChange={setPassword} placeholder='Password' required disabled={active} /></li>
-                            <li><RiLockPasswordLine size={28} onClick={togglePasswordVisibility} className='text-gray-700 my-auto cursor-pointer  mt-3 z-10  -ml-10' disabled={active} /></li>
-                        </li> */}
                     </ul>
                 </div>
             </div>
@@ -119,20 +116,30 @@ function ProfileCard() {
             </div>{
                 UserData && UserData.role === 'Student' ? '' : <div>
                     <div className='block text-left p-4'>
-                        <span className='text-gray-600 capitalize text-md font-semibold'>Company Details</span>
+                        <ul className='flex justify-between'>
+                            <li> <span className='text-gray-600 capitalize text-md font-semibold'>Company Details</span></li>
+                            <li> <button onClick={() => setCompanyField(!companyDetailsFieldHandle)} className='active:text-sky-500 '> <FiEdit /></button></li>
+                        </ul>
+
                     </div>
                     <div className='w-[97%] mx-auto px-5'>
                         <ul className='flex  space-y-8 mb-8 justify-between flex-wrap'>
-                            <li><InputField type="text" value={companyName} onChange={setCompanyName} placeholder='Company Name' inputClass='mt-8' disabled /></li>
-                            <li><InputField type="text" value={desination} onChange={setDesination} placeholder='Desination' disabled /></li>
-                            <li><InputField type="text" value={startDate} onChange={setStartDate} placeholder='Joining Date' disabled /></li>
-                            <li><InputField type="text" value={endDate} onChange={setEndDate} placeholder='End Date' disabled /></li>
-                            <li><InputField type="text" value={currentlyWorking} onChange={setCurrentlyWorking} placeholder='Currtly Working' disabled /></li>
+                            <li><InputField type="text" value={companyName} onChange={setCompanyName} placeholder='Company Name' inputClass='mt-8' disabled={companyDetailsFieldHandle} /></li>
+                            <li><InputField type="text" value={desination} onChange={setDesination} placeholder='Desination' disabled={companyDetailsFieldHandle} /></li>
+                            <li><InputField type="date" value={startDate} onChange={setStartDate} placeholder='Joining Date' disabled={companyDetailsFieldHandle} /></li>
+                            <li><InputField type="date" value={endDate} onChange={setEndDate} placeholder='End Date' disabled={companyDetailsFieldHandle} /></li>
+                            <li className={`py-2 rounded-md text-gray-600 text-md border border-gray-300  placeholder:text-gray-500 placeholder:mx-2 focus:outline-blue-400`}>
+
+                                {/* <InputField type="text" value={role} onChange={setRole} placeholder='Role' inputClass='focus:outline-blue-400' inputdivclass='mt-1 ml-2'  /> */}
+                                <select className='py-2 shadow-md rounded-md mx-2 my-auto bg-white outline-none'>
+                                    <option value="Alumni" selected>Alumni</option>
+                                    <option value="Student" >Student</option>
+                                </select>
+                            </li>
                         </ul>
                     </div>
                 </div>
             }
-
             <div className='flex justify-end mx-auto w-auto lg:mx-0 lg:p-10'>
                 <button onClick={handleSubmit} className='bg-gradient-to-tr from-blue-400 to-blue-500 w-auto rounded-md p-2  text-white text-md font-semibold '>Update</button>
             </div>

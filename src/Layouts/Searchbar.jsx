@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { FetchAllUser } from '../hooks/useFetch';
+import { FetchAllUser, FetchUserWithQuery } from '../hooks/useFetch';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 function Searchbar({ value, onChange }) {
     const [isMobile, setIsMobile] = useState(false);
-    const [query , setQuery] = useState('')
+    const [query, setQuery] = useState('')
+    const [dispalyQuerydiv, setQueryDiv] = useState(false)
+    const [queryData, setQueryData] = useState('')
 
     useEffect(() => {
         const checkScreenSize = () => {
@@ -13,10 +17,21 @@ function Searchbar({ value, onChange }) {
         window.addEventListener("resize", checkScreenSize);    // Event listener for screen size change
         return () => window.removeEventListener("resize", checkScreenSize);   // Clean up event listener
     }, []);
-    
-    useEffect(()=>{
 
-    },[])
+    const fetchQuery = async () => {
+        let response = await FetchUserWithQuery(query);
+        if (response.statusCode === 200) {
+            toast.success(response?.message,{
+                position: "top-center",
+                autoClose: 200
+            })
+            setQueryData(response?.data)
+            setQueryDiv(true)
+        }
+        else {
+            toast.error(response?.response?.message)
+        }
+    }
 
     return (
         <div>
@@ -28,19 +43,33 @@ function Searchbar({ value, onChange }) {
                     </div>
                 </div>
                     :
-                    <div className='w-auto lg:w-[70%] flex mx-auto justify-center h-auto sticky top-2 '>
-                        <div className='w-full flex justify-center'>
-                            <input type='text' className='py-2 my-5 h-12 w-[75%] lg:w-[70%] px-8 rounded-full bg-blur outline-none border border-blue-500' value={value} placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
-                            <select
-                            id="selectOption"
-                            // value={selectedOption}
-                            // onChange={handleOptionChange}
-                            className=' lg:w-[12%] h-[3rem] flex  my-auto  bg-blue-500 rounded-full  lg:-ml-24  lg:pr-0 lg:text-center  text-white font-semibold active:bg-blue-600 outline-none z-10'
-                        >
-                            <option className=' bg-white text-gray-500  mx-auto'  value="">Select</option>
-                            <option className=' bg-white text-gray-500   mx-auto' value="option1">Alumni</option>
-                            <option className=' bg-white text-gray-500   mx-auto' value="option2">Students</option>
-                        </select>
+                    <div>
+                    <div className='w-auto lg:w-[70%] flex mx-auto justify-center h-auto sticky top-2 flex-col '>
+                        <div className='w-full flex justify-center' >
+                            <input type='text' className='py-2 my-5 h-12 w-[75%] lg:w-[70%] px-8 rounded-full bg-blur outline-none border border-blue-500' value={query} placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
+                            <button onClick={() => { fetchQuery() }} className=' lg:w-[12%] h-[3rem] flex  my-auto px-6 text-xl py-2 bg-blue-500 rounded-full  lg:-ml-24 align-middle  lg:text-center  text-white font-semibold active:bg-blue-600 outline-none z-10'>Search</button>
+                            </div>
+                        {
+                            dispalyQuerydiv ? <div className='justify-center mx-auto w-[75%] bg-white  rounded-md text-center max-h-[50vh]'>
+                                {
+                                    queryData && queryData.map((user)=> (
+                                        <ul key={user._id} >
+                                             <Link className='my-5  h-5 w-[75%]    bg-blur outline-none border-b-2 mx-auto flex justify-between' to={`${user && user?.username}`}>
+                                            <li>{user.full_name}</li>
+                                            <li>{user.role}</li>
+                                            </Link>
+                                        </ul>
+                                       
+                                    ))
+                                    
+                                }
+
+                            </div> : ''
+
+
+                        }
+                        
+
                         </div>
                     </div>
             }

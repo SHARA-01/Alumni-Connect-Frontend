@@ -61,7 +61,6 @@ function RegisterForm({ role }) {
                         <InputField type="email" value={email} onChange={setEmail} placeholder='Email' required />
                         <InputField type="text" value={username} onChange={setUserName} placeholder='@username' required />
                         <InputField type="tel" value={mobileNumber} onChange={setMobileNumber} placeholder='Mobile Number' required />
-                        <InputField type="text" value={""} placeholder='Linkdin Profile URL' />
                         <div className="flex justify-between w-auto ">
                             <InputField type={showPassword ? "text" : "password"} value={password} onChange={setPassword} placeholder='Password' required />
                             <RiLockPasswordLine size={28} onClick={togglePasswordVisibility} className='text-gray-700 my-auto cursor-pointer   z-10 bg-white -ml-10 ' />
@@ -83,8 +82,8 @@ function RegisterForm({ role }) {
                                 <div className='flex space-x-3 space-y-8 mb-8 flex-wrap'>
                                     <InputField type="text" value={degree} onChange={setDegree} placeholder='Degree' inputClass='mt-8 ml-3' />
                                     <InputField type="text" value={specialization} onChange={setSpecialization} placeholder='Branch' />
-                                    <InputField type="text" value={startYear} onChange={setStartYear} placeholder='start Year' />
-                                    <InputField type="text" value={endYear} onChange={setEndYear} placeholder='Passing Year' />
+                                    <InputField type="number" value={startYear} onChange={setStartYear} placeholder='start Year' />
+                                    <InputField type="number" value={endYear} onChange={setEndYear} placeholder='Passing Year' />
                                 </div>
                             </div>
                         </div>
@@ -98,8 +97,8 @@ function RegisterForm({ role }) {
                                 <div className='flex space-x-3 space-y-8 mb-8 flex-wrap'>
                                     <InputField type="text" value={companyName} onChange={setCompanyName} placeholder='Company Name' inputClass='mt-8 ml-3' />
                                     <InputField type="text" value={designation} onChange={setdesignation} placeholder='designation' />
-                                    <InputField type="text" value={startDate} onChange={setStartDate} placeholder='Joining Date' />
-                                    <InputField type="text" value={endDate} onChange={setEndDate} placeholder='End Date' />
+                                    <InputField type="date" value={startDate} onChange={setStartDate} placeholder='Joining Date' />
+                                    <InputField type="date" value={endDate} onChange={setEndDate} placeholder='End Date' />
                                     <InputField type="text" value={currentlyWorking} onChange={setCurrentlyWorking} placeholder='Currtly Working' />
 
                                 </div>

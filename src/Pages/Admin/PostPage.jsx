@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import { MdPostAdd, TbEdit, RiDeleteBin6Line, FaRegWindowClose, BiNotification } from '../../Components/ReactIconsIndex'
 import { CreatePost, ToggleButton, toast } from '../../Components/index'
 import { ActivePost, GetAllJobPost, DeletePost, DeactivePost } from '../../hooks/useFetchJobs'
-
-
-
+import { Link } from 'react-router-dom'
 
 const JobPost = () => {
     const [createPost, setCreatePost] = useState(false)
@@ -40,23 +38,28 @@ const JobPost = () => {
         setJobs('')
     }
 
-    const deletePost = async(id) => {
-       let response = await DeletePost(id)
-       if(response?.statusCode === 200){
-        toast.success("Post Deleted SuccessFully")
-       }
+    const deletePost = async (id) => {
+        let response = await DeletePost(id)
+        if (response?.statusCode === 200) {
+            toast.success("Post Deleted SuccessFully", {
+                position: 'top-center',
+                autoClose: 2000,
+            })
+        }
         setJobId(id)
     }
 
-    const showToast = (message) => {
-        toast.success(message);
-    };
+
 
     const handleActive = async (id) => {
         const fetch = await ActivePost(id)
         if (fetch?.statusCode === 201) {
-            setJobs('');
-            showToast("Post Active Successfully");
+            setJobs('')
+            toast.success("Post Active SuccessFully", {
+                position: 'top-center',
+                autoClose: 2000,
+            })
+
         }
     }
 
@@ -64,7 +67,10 @@ const JobPost = () => {
         let fetch = await DeactivePost(id)
         if (fetch?.statusCode === 201) {
             setJobs('');
-           return  showToast("Post DeActive Successfully");
+            toast.success("Post DeActive SuccessFully", {
+                position: 'top-center',
+                autoClose: 2000,
+            })
         }
     }
 
@@ -82,7 +88,7 @@ const JobPost = () => {
                                     <li>
                                         <span className='w-auto inline-flex text-xl text-white font-semibold py-3 px-3 cursor-pointer'>
                                             {postRequestVisible ? createPost ? "" : <FaRegWindowClose onClick={RequestPostVisble} size={29} className='hover:text-purple-800' /> : <BiNotification onClick={RequestPostVisble} size={29} className='hover:text-purple-800' />}
-                                            </span>
+                                        </span>
                                     </li>
                                     <li>
                                         <span className='w-auto inline-flex text-xl text-white font-semibold py-3 px-3 cursor-pointer'>
@@ -124,10 +130,12 @@ const JobPost = () => {
                                             postRequestVisible ?
                                                 jobs && jobs.filter(job => job.is_active === false).map((job) => (
                                                     <tr key={job._id} className='flex justify-between border-b-2 '>
-                                                        <td className='w-2/6 grid'>
-                                                            <span className='p-2 text-gray-800 text-md font-semibold '>{job.title}</span>
-                                                            <span className='p-2 text-gray-600 text-sm -mt-5 '>{job.posted_by.role}</span>
-                                                        </td>
+                                                        <Link className='w-2/6' to={`${job && job._id}`}>
+                                                            <td className='w-2/6 grid cursor-pointer'>
+                                                                <span className='p-2 text-gray-800 text-md font-semibold '>{job.title}</span>
+                                                                <span className='p-2 text-gray-600 text-sm -mt-5 '>{job.posted_by.role}</span>
+                                                            </td>
+                                                        </Link>
                                                         <td className='text-gray-500 text-sm font-bold mx-auto my-auto w-2/6 '>
                                                             {job.posted_by.full_name}
                                                         </td>
@@ -145,20 +153,26 @@ const JobPost = () => {
                                                 :
                                                 jobs && jobs.filter(job => job.is_active === true).map((job) => (
                                                     <tr key={job._id} className='flex justify-between border-b-2 '>
-                                                        <td className='w-2/6 grid'>
-                                                            <span className='p-2 text-gray-800 text-md font-semibold '>{job.title}</span>
-                                                            <span className='p-2 text-gray-600 text-sm -mt-5 '>{job.posted_by.role}</span>
+
+                                                        <td className='w-2/6 grid cursor-pointer'>
+                                                            <Link className=' grid' to={`${job && job._id}`}>
+                                                                <span className='p-2 text-gray-800 text-md font-semibold '>{job.title}</span>
+                                                                <span className='p-2 text-gray-600 text-sm -mt-5 '>{job.posted_by.role}</span>
+                                                            </Link>
                                                         </td>
+
                                                         <td className='text-gray-500 text-sm font-bold mx-auto my-auto w-2/6  '>
-                                                            {job.posted_by.full_name}
+                                                            <Link to={`/admin/users/${job && job.posted_by.username}`}>
+                                                                {job.posted_by.full_name}
+                                                            </Link>
                                                         </td>
                                                         <td className='text-gray-500 space-x-3 font-bold flex text-2xl my-auto  p-3'>
                                                             <ul>{
-                                                                job?.posted_by?.role === "Admin" ? '' :  <li onClick={() => { handleDeActive(job._id), setJobId(job._id) }} >
-                                                                {<ToggleButton is_active={job.is_active} />}
-                                                            </li> 
-                                                                }
-                                                               
+                                                                job?.posted_by?.role === "Admin" ? '' : <li onClick={() => { handleDeActive(job._id), setJobId(job._id) }} >
+                                                                    {<ToggleButton is_active={job.is_active} />}
+                                                                </li>
+                                                            }
+
                                                             </ul>
                                                             {job?.posted_by?.role === "Admin" ? < RiDeleteBin6Line onClick={() => deletePost(job._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl' /> : ''}
                                                         </td>

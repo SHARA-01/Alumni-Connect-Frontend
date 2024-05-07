@@ -27,7 +27,18 @@ const GetJobInfo = async(id)=> {
     
 }
 const GetAllJobPost = async() => {
-    let GetPost = await fetch(' ', {
+    let GetPost = await fetch('http://localhost:8000/api/v1/jobs', {
+        method: 'get',
+        credentials : "include"
+    });
+    if (!GetPost.ok) {
+        return {response:await GetPost.json(), status:GetPost.status , statusText:GetPost.statusText};
+    }
+    return GetPost.json();
+    
+}
+const GetJobsWithQUery = async(query) => {
+    let GetPost = await fetch(`http://localhost:8000/api/v1/jobs?query=${query}`, {
         method: 'get',
         credentials : "include"
     });
@@ -39,7 +50,7 @@ const GetAllJobPost = async() => {
 }
 
 const ActivePost = async(id) => {
-    let checkIsActive = await fetch(`http://localhost:8000/api/v1/jobs/active/${id}`, {
+    let checkIsActive = await fetch(`http://localhost:8000/api/v1/jobs/${id}`, {
         method: 'put',
         credentials: "include"
     });
@@ -50,7 +61,7 @@ const ActivePost = async(id) => {
 }
 
 const DeactivePost = async(id) => {
-    let checkIsActive = await fetch(`http://localhost:8000/api/v1/jobs/deactive/${id}`, {
+    let checkIsActive = await fetch(`http://localhost:8000/api/v1/jobs/${id}`, {
         method: 'put',
         credentials: "include"
     });
@@ -74,4 +85,4 @@ const DeletePost = async(id) => {
 
 
 
-export {JobPostCreate ,GetAllJobPost, ActivePost, DeletePost, DeactivePost, GetJobInfo};
+export {JobPostCreate ,GetAllJobPost, ActivePost, DeletePost, DeactivePost, GetJobInfo, GetJobsWithQUery};

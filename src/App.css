@@ -75,12 +75,12 @@ body {
   background-color: #fff;
 }
 .landingPage-main {
-  margin-top: 4rem;
+  margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   width: 1270px;
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   /* gap: 2rem; */
 }
 .landingPage-main .left {

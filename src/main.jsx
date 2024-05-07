@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Login, AdminMain, Routess, Dashbord, UserProfile, UsersPage, RegisterPage, PostPage, UserMain, IndexPage, ProfilePage, JobPost, TestPage, CreateJobPost, JobsPostedPageForAlumni, JobPostView, DisplayUserProfile, LandingPage, PrivateRouterAll , LoginHandle} from './Components/index.js'
-import { Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import { Login, AdminMain, Routess, Dashbord, UserProfile, UsersPage, RegisterPage, PostPage, UserMain, IndexPage, ProfilePage, JobPost, TestPage, CreateJobPost, JobsPostedPageForAlumni, JobPostView, DisplayUserProfile, LandingPage, PrivateRouterAll , LoginHandle, ChangePassword} from './Components/index.js'
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import './index.css'
 import './App.css'
 import { ToastContainer } from 'react-toastify'
@@ -22,7 +22,8 @@ const router = createBrowserRouter(
         <Route path="users" element={<UsersPage />} />
         <Route path='users/:id' element={<DisplayUserProfile />} />
         <Route path="user/register" element={<RegisterPage />} />
-        <Route path="new-post" element={<PostPage />} />
+        <Route path="posts" element={<PostPage />} />
+        <Route path='posts/:id' element={<JobPostView />} />
       </Route>
       </Route>
 
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
             <Route path='' element={<IndexPage />} index/>
             <Route path=':id' element={<DisplayUserProfile />} />
             <Route path='profile' element={<UserProfile />} />
+            <Route path='profile/change-password' element={<ChangePassword />} />
             <Route path='new-post' element={<CreateJobPost />} />
             <Route path='jobs' element={<JobPost />} />
             <Route path='job/:id' element={<JobPostView/>} />

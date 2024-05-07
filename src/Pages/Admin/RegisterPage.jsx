@@ -25,7 +25,7 @@ function Register() {
                             <RegisterForm role={userType} />
                         </div>
                             :
-                            <div className='flex mt-10 justify-between w-[95%] mx-auto h-auto'>
+                            <div className='flex mt-10 justify-around w-[95%] mx-auto h-auto'>
                                 <div className='bg-gray-100 shadow-md w-[30%] rounded-md p-3 my-10  group '>
                                     <div className='w-[100px] mx-auto h-[100px] bg-purple-500 rounded-full shadow-md border-[2px] border-white  -mt-[3rem]   '>
                                         <PiStudent className=' text-white mx-auto my-auto mt-[25%] ' size={40} />
@@ -52,7 +52,7 @@ function Register() {
                                     </div>
                                 </div>
 
-                                <div className='bg-gray-100 w-[30%] rounded-md p-3 my-10 shadow-md group '>
+                                {/* <div className='bg-gray-100 w-[30%] rounded-md p-3 my-10 shadow-md group '>
                                     <div className='w-[100px] mx-auto h-[100px] bg-gradient-to-tr from-green-500 to-green-300 rounded-full shadow-md border-[2px] border-white  -mt-[3rem]   '>
                                         <PiStudent className='text-white mx-auto my-auto mt-[25%] ' size={40} />
                                     </div>
@@ -64,7 +64,7 @@ function Register() {
                                     <div className='w-full flex justify-center '>
                                         <button onClick={() => setUser("Admin")} className='bg-gradient-to-tr from-blue-500 to-blue-400 rounded-md px-12 py-2 my-2 shadow-md hover:bg text-white text-md font-semibold '> Add </button>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                     }
                 </div>

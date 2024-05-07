@@ -10,6 +10,7 @@ export default function Users() {
     const [showUpdatediv, setShowUpdatediv] = useState(false)
     const [userId, setUserId] = useState(null)
     const [showProfile, setShowProfile] = useState(false)
+    const [newrole, setNewRole] = useState('')
 
     let localData = JSON.parse(localStorage.getItem('user'))
     useEffect(() => {
@@ -43,10 +44,16 @@ export default function Users() {
         setUserId(id)
     }
 
+    const handleNewRole = (role)=>{
+         role === "Alumni" ? role="Student" : role="Alumni"
+        setNewRole(role)
+}
+
+
     return (
         <div className='font-sans font-roboto font-helvetica font-arial min-h-[76vh]'>
             <div>
-                <div name='Admin-table-data' className=' bg-white w-full mt-[5%] rounded-md shadow-md'>
+                {/* <div name='Admin-table-data' className=' bg-white w-full mt-[5%] rounded-md shadow-md'>
                     <div className='flex'>
                         <div className='w-[98%] h-[70px] overflow-auto bg-gradient-to-tr from-blue-600 to-blue-400 rounded-md shadow-lg my-2 mx-auto -mt-6'>
                             <div className=' text-xl w-1/5 my-auto  text-white p-5 '>Admin</div>
@@ -115,7 +122,7 @@ export default function Users() {
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> */}
 
                 <div name='alumni-table-data' className=' bg-white w-full mt-[5%] rounded-md shadow-md'>
                     <div className='flex'>
@@ -168,7 +175,7 @@ export default function Users() {
                                                 </td>
                                                 <td className='text-gray-500 space-x-3 text-center font-bold my-auto flex text-2xl w-[10%] p-3'>
                                                     {showUpdatediv && user._id == userId ? <FaRegWindowClose onClick={() => setShowUpdatediv(false)} className='hover:bg-red-800 hover:text-white rounded-md  font-semibold hover:p-1 cursor-pointer' /> :
-                                                        <TbEdit onClick={() => { setShowUpdatediv(true), CheckSpecificUser(user._id), setShowProfile(false) }} className='hover:border hover:bg-yellow-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl cursor-pointer ' />
+                                                        <TbEdit onClick={() => { CheckSpecificUser(user._id), setShowProfile(false), setShowUpdatediv(true) }} className='hover:border hover:bg-yellow-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl cursor-pointer ' />
                                                     }
                                                     <RiDeleteBin6Line onClick={() => deleteUser(user._id)} className='hover:border hover:bg-red-500 hover:text-white hover:text-2xl hover:p-[2px] hover:rounded-md active:text-2xl cursor-pointer' />
                                                 </td>
@@ -177,7 +184,7 @@ export default function Users() {
                                             </tr>
                                             <tr>
                                                 {showUpdatediv && userId === user._id ? <div className='relative border-4 rounded-md p-3 mx-auto my-3'>
-                                                    <UserProfileUpdateAdmin id={user._id} Role={user.role} fullname={user.full_name} Email={user.email} userName={user.username} MobileNumber={user.mobile_number} Degree={user.graduation_details.degree} Specialization={user.graduation_details.specialization}
+                                                    <UserProfileUpdateAdmin newRole={newrole} id={user._id} Role={user.role} fullname={user.full_name} Email={user.email} userName={user.username} MobileNumber={user.mobile_number} Degree={user.graduation_details.degree} Specialization={user.graduation_details.specialization}
                                                         StartYear={user.graduation_details.start_year} EndYear={user.graduation_details.end_year} CompanyName={user.company_details ? user.company_details.company_name : "Null"} Desination={user.company_details ? user.company_details.designation : 'Null'} StartDate={user.company_details ? user.company_details.start_date : `01/01/2001`} EndDate={user.company_details ? user.company_details.end_date : '01/01/2002'} setUsers={setUsers} hideUpdateDiv={showUpdatediv} />
                                                 </div> : ''
                                                 }

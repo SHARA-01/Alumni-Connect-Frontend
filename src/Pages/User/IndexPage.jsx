@@ -13,12 +13,12 @@ function IndexPage() {
         const fetchData = async () => {
             try {
                 const fetchedData = await FetchAllUser();
-                setUsers(fetchedData.data);
+                setUsers(fetchedData?.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
-        if (users.length === 0) {
+        if (users?.length === 0) {
             fetchData();
         }
     }, [users]);

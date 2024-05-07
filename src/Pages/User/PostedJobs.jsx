@@ -37,7 +37,7 @@ function PostedJobs() {
         if (response?.statusCode === 200) {
             toast.success("Post Deleted Successfully.")
             setJobId(id)
-
+            setJobs('')
         } else {
             toast.error(response?.response?.message)
         }

@@ -7,9 +7,9 @@ function UserMain() {
   // const localStorageData = JSON.parse(localStorage.getItem('user'))
 
   return (
-    <div className='m-0   bg-[#EEEEEE]'>
+    <div className='m-0   bg-[#EEEEEE] '>
         <Usernavbar />
-        <div className='rounded-lg shadow-lg  z-30 -pb-10 '>
+        <div className='rounded-lg shadow-lg  z-30 -pb-10 min-h-[70vh] '>
         <Outlet />
         </div>
         <div className="absolute w-full -z-[10]">

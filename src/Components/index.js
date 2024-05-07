@@ -55,6 +55,7 @@ import { toast } from 'react-toastify'
 // route
 import PrivateRouterAll from '../router/PrivateRouterALL.jsx'
 import LoginHandle from '../router/LoginHandle.jsx'
+import ChangePassword from '../Pages/User/ChangePassword.jsx'
 
 
 
@@ -97,6 +98,8 @@ export {
     JobPost,
     CreateJobPost,
     DisplayUserProfile,
+    ChangePassword,
+
 
     // test page
     TestPage,

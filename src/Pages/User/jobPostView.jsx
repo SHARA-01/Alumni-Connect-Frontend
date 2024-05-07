@@ -21,21 +21,24 @@ function JobPostView() {
         <div className='h-auto min-h-[70vh] py-10'>
             <div className='w-[50%]  mx-auto bg-white px-10 py-10 rounded-md shadow-md shadow-black/30 space-y-4' >
                 <h1 className='text-3xl text-gray-700 font-bold capitalize'>
-                    {jobInfo && jobInfo.title || ''}
+                    {jobInfo && jobInfo?.title || ''}
                 </h1>
+                <h2 className='text-xl/2 text-gray-700 font-bold capitalize'>
+                    {jobInfo && jobInfo?.company_name}
+                </h2>
                 <h3 className='text-md  text-gray-700 font-semibold capitalize'>
                     <ul className='flex space-x-4 capitalize'>
                         <li>
                             {`Location: ${jobInfo && jobInfo.location}` || ''}
                         </li>
-                        <li>{
-                            jobInfo && jobInfo.posted_by.role != "Admin" ? <Link to={`/user/${jobInfo && jobInfo.posted_by.username}`}>{`PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''}</Link> : `PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''   
+                        <li className='text-blue-500'>{
+                            jobInfo && jobInfo?.posted_by?.role != "Admin" ? <Link to={`/user/${jobInfo && jobInfo.posted_by.username}`}>{`PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''}</Link> : `PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''   
                             }
                         </li>
                     </ul>
                 </h3>
                 <h5 className='text-md text-gray-700 font-semibold '>
-                    {jobInfo && jobInfo.job_description || ''}
+                    {jobInfo && jobInfo?.job_description || ''}
                 </h5> 
             </div>
         </div>

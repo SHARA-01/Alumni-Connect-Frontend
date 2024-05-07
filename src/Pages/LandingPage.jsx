@@ -110,7 +110,7 @@ const LandingPage = () => {
                             <div className="desc">
                                 Alumnis from all big tech companies are here
                                 to assist you. You will be provided personalized
-                                chatting with them. You can get Recommandion from them in there companies.
+                                chatting with them. You can get recommendation from them in there companies.
                             </div>
                         </div>
                         <div className="service-desc-3 service-common">
@@ -122,7 +122,7 @@ const LandingPage = () => {
                                 />
                             </div>
                             <div className="heading text-gray-700">
-                                <p>Multiple Job opportunity </p>
+                                <p>Multiple Job Opportunity </p>
                             </div>
                             <div className="desc">
                                 To eliminate crowding, we have separated our job listing into varions
@@ -142,7 +142,7 @@ const LandingPage = () => {
                                 <p>Interships from Alumni</p>
                             </div>
                             <div className="desc">
-                                Here you can get directly recomandion from the alumnis and you senior's who is currently working in big tech companies.
+                                Here you can get directly recommendation from the alumnis and you senior's who is currently working in big tech companies.
                             </div>
                         </div>
                         <div className="service-desc-5 service-common">
@@ -172,7 +172,7 @@ const LandingPage = () => {
                                 <p>Password Secured Authentication</p>
                             </div>
                             <div className="desc">
-                               To maintane privacy of individual users we use Password secured authentication.
+                               To maintane privacy of individual users we use Password Secured authentication.
                             </div>
                         </div>
                         <div className="service-desc-7 service-common">
@@ -184,7 +184,7 @@ const LandingPage = () => {
                                 />
                             </div>
                             <div className="heading text-gray-700">
-                                <p>Get Personal Skill imprument Feedback</p>
+                                <p>Get Personal Skill Feedback</p>
                             </div>
                             <div className="desc">
                                Alumni will give there Feedback and also provides there work expirence with you individual. they will give you best career guide.
@@ -215,13 +215,11 @@ const LandingPage = () => {
                             </li>
                             <li className="">
                                 <span className=" ">
-                                    Passwordless authentication is an authentication method in
+                                    Password authentication is an authentication method in
                                     which a user can log in to any particular product or system
                                     without entering (and having to remember) a password or any
-                                    other knowledge-based secret. SheRise provides you with this
-                                    feature which will help the users to login to their profile
-                                    seamlessly by eliminating the forget password process from
-                                    the system.
+                                    other knowledge-based secret. Alumni Connect provides you with this
+                                    feature which will help the users to login to their profile.
                                 </span>
                             </li>
                         </ul>
@@ -230,21 +228,19 @@ const LandingPage = () => {
                         <ul className="flex space-y-1 flex-col  mr-10 ">
                             <li className="flex font-semibold text-gray-600 space-x-2">
                                 <span className="my-auto align-middle"><FaFemale /></span>
-                                <span className="my-auto align-middle">Female Oriented Jobs</span>
+                                <span className="my-auto align-middle">Alumni Oriented Jobs</span>
                             </li>
                             <li className="">
                                 <span className=" ">
-                                    We are the first one to come up with the onestop job portal
-                                    only for the females. Here all the jobs which are listed are
-                                    at first verified by our very own recruiters to eliminate
-                                    false listings and we are providing the job listings under 5
-                                    main criteria i.e, Conferences, Hackathons, Hirings,
-                                    Internships and Workshops.
+                                "Alumni-oriented jobs" refers to job opportunities specifically targeted towards
+                                 individuals who have graduated from a particular educational institution or program.
+                                  These jobs may offer unique benefits or requirements tailored to alumni,
+                                   such as alumni networks, mentoring programs, or alumni-exclusive job postings
                                 </span>
                             </li>
                         </ul>
                     </div>
-                    <div className="all-reasons space-y-2">
+                    {/* <div className="all-reasons space-y-2">
                         <ul className="flex space-y-1 flex-col  mr-10 ">
                             <li className="flex font-semibold text-gray-600 space-x-2">
                                 <span className="my-auto align-middle"><FaHandHoldingHeart /></span>
@@ -259,7 +255,7 @@ const LandingPage = () => {
                                 </span>
                             </li>
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <footer className="text-center text-gray-600 border-t border-gray-300 py-1">

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { InputField, toast } from '../../Components/index'
 import { FiEdit, FaWindowClose, RiLockPasswordLine } from "../../Components/ReactIconsIndex";
 import { useNavigate } from 'react-router-dom';
-import { AvatarUpload, UpdateUser, WhoAmI, passwordChange } from '../../hooks/useFetch';
+import { AvatarUpload, UpdateAccount, UpdateUser, WhoAmI, passwordChange } from '../../hooks/useFetch';
 import { displayName } from 'react-quill';
 // import FileWithPath from 'react-dropzone'
 
@@ -43,7 +43,7 @@ function Profile() {
 
     const UpdateProfile = (id) => {
         let fetch = async () => {
-            let response = await UpdateUser({ id, username, fullName, email, mobileNumber, role });
+            let response = await UpdateAccount({ id, username, fullName, email, mobileNumber, role });
             // response = response.json();
             console.log(response)
             if (response.statusCode === 200){

@@ -33,6 +33,24 @@ const FetchAllUser = async (query) => {
     }
 };
 
+const FetchUserWithQuery = async (query) => {
+    try {
+        const response = await fetch(`http://localhost:8000/api/v1/users?query=${query}`, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: "include"
+        });
+        if (!response.ok) {
+            return {response:await response.json(), status:response.status , statusText:response.statusText};
+        }
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+};
+
 const FetchSingleuser = async (id) => {
     let User = await fetch(`http://localhost:8000/api/v1/users/p/${id}`, {
         method: "get",
@@ -166,4 +184,4 @@ const logOut = async()=>{
 
 }
 
-export { Fetch, FetchAllUser, UserDelete, UpdateUser, FetchSingleuser, WhoAmI , AvatarUpload, passwordChange, logOut, UpdateAccount};
+export { Fetch, FetchAllUser, UserDelete, UpdateUser, FetchSingleuser, WhoAmI , AvatarUpload, passwordChange, logOut, UpdateAccount, FetchUserWithQuery};

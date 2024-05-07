@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from 'react'
 import { GoHome } from '../Components/ReactIconsIndex'
 import {useNavigate, Link} from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { logOut } from '../hooks/useFetch'
 
 
 function AdminNavbar({User}) {
@@ -21,11 +23,20 @@ function AdminNavbar({User}) {
         setMenuvisible(false);
     }
 
-    const logout = async () => {
-        localStorage.clear()
-        navigate('/')
-
-    }
+    const logout = async() => {
+        let response = await logOut();
+        if(response?.statusCode === 200){
+          toast.success(response?.message,{
+            position: "top-center",
+            autoClose:2000,
+          })
+          localStorage.clear();
+          navigate('/')
+        }
+        else{
+          toast.error(response?.response?.message)
+        }
+      }
 
     return (
         <div>

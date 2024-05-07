@@ -62,7 +62,7 @@ function UserProfile() {
                             }
                             {
                                 UplaodActive ?
-                                    <span onClick={() => { handleUpload(), setUploadActive(true), setAvatar('') }} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Upload</span> :
+                                    <span onClick={() => { handleUpload(), setUploadActive(true)}} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Upload</span> :
                                     <span onClick={() => setUploadActive(true)} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Change Profile</span>
                             }
                         </div> :
@@ -70,7 +70,14 @@ function UserProfile() {
                                 <div className='w-[100px] h-[100px]  mt-8 my-4 p-2 mx-auto rounded-full flex shadow-md border border-t-1 border-gray-200'>
                                     <PiStudent size={50} className='mx-auto my-auto' />
                                 </div>
-                                <span onClick={() => setUploadActive(!UplaodActive)} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Change Profile 2</span>
+                                {
+                                UplaodActive ? <input className='mx-auto my-8 outline-none' placeholder='Choose a file' type="file" onChange={(e) => setSetedFile(e.target.files[0])} /> : ''
+                            }
+                            {
+                                UplaodActive ?
+                                    <span onClick={() => { handleUpload(), setUploadActive(true)}} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Upload</span> :
+                                    <span onClick={() => setUploadActive(true)} className='mx-auto font-semibold text-md text-gray-600 active:text-gray-800 border-2 hover:border-4 px-4 y-2 border-gray-400 rounded-md'>Change Profile</span>
+                            }
                             </div>
                     }
                 </div>

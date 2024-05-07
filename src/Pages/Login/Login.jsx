@@ -2,7 +2,7 @@ import { useState } from "react";
 // import { fixedInputClass, InputField } from '../../Components/index' 
 import { useNavigate } from "react-router-dom";
 import { RiLockPasswordLine } from '../../Components/ReactIconsIndex'
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Fetch } from '../../hooks/useFetch'
 
@@ -20,6 +20,7 @@ export default function Login() {
         if(userdata?.statusCode === 200){
             toast.success(userdata?.message,{
                 position: "top-center",
+                autoClose: 3000,
             });
               if (userdata.data.user.role === "Admin") {
                 localStorage.setItem('user', JSON.stringify(userdata.data));

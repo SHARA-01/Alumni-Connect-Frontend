@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputField from './InputField';
 import { UpdateUser } from '../hooks/useFetch';
 import { toast } from 'react-toastify';
@@ -9,8 +9,9 @@ import { toast } from 'react-toastify';
 // import { useSearchParams } from 'react-router-dom';
 // import { RiLockPasswordLine, FiEdit } from "../Components/ReactIconsIndex";
 
-function UserProfileForAdmin({ id, Role, fullname, Email, userName, MobileNumber, Degree, Specialization, StartYear, EndYear, CompanyName, Desination, StartDate, EndDate, CurrentlyWorking, setUsers, hideUpdateDiv }) {
+function UserProfileForAdmin({newRole, id, Role, fullname, Email, userName, MobileNumber, Degree, Specialization, StartYear, EndYear, CompanyName, Desination, StartDate, EndDate, CurrentlyWorking, setUsers, hideUpdateDiv }) {
     let [role, setRole] = useState(Role || '')
+    const [newrole, setNewRole] = useState('')
     const [username, setUserName] = useState(userName || '')
     const [fullName, setFullName] = useState(fullname || '')
     const [email, setEmail] = useState(Email || '')
@@ -32,7 +33,7 @@ function UserProfileForAdmin({ id, Role, fullname, Email, userName, MobileNumber
     }
 
     const updateUser = async () => {
-        if (role === "Admin") role = "Alumni"
+       
         let response = await UpdateUser({ id, role, username, fullName, email, mobileNumber, degree, specialization, startYear, endYear, companyName, designation, startDate, currentlyWorking, endDate })
         if (response.statusCode === 200) {
             toast.success(response?.message)
@@ -42,6 +43,13 @@ function UserProfileForAdmin({ id, Role, fullname, Email, userName, MobileNumber
             toast.error(response?.response?.message)
         }
     }
+
+    const handleNewRole = ()=>{
+            role = role === "Alumni" ? "Student": "Alumni"
+            setNewRole(role)
+    }
+
+    console.log(newrole)
 
     return (
         <div className='w-full rounded-lg mx-auto  bg-gray-300 py-2'>
@@ -53,12 +61,18 @@ function UserProfileForAdmin({ id, Role, fullname, Email, userName, MobileNumber
                 </div>
                 <div className=' mx-auto p-1'>
                     <ul className='flex  space-y-1 space-x-2 flex-wrap'>
-                        <li><InputField type="text" value={role} onChange={setRole} placeholder='Role' inputClass='focus:outline-blue-400' inputdivclass='mt-1 ml-2' /></li>
+                    <li className={`py-2 rounded-md text-gray-600 text-md border border-gray-300  placeholder:text-gray-500 placeholder:mx-2 focus:outline-blue-400`}>
+
+                            {/* <InputField type="text" value={role} onChange={setRole} placeholder='Role' inputClass='focus:outline-blue-400' inputdivclass='mt-1 ml-2'  /> */}
+                        <select  className='py-2 shadow-md rounded-md mx-2 my-auto bg-white outline-none'>
+                                    <option value="Alumni" selected>Alumni</option>
+                                    <option value="Student" >Student</option>
+                                </select>
+                        </li>
                         <li><InputField type="text" value={fullName} onChange={setFullName} placeholder='Full Name' required /></li>
                         <li><InputField type="email" value={email} onChange={setEmail} placeholder='Email' required /></li>
-                        <li><InputField type="text" value={username} onChange={setUserName} placeholder='@username' required /></li>
+                        <li><InputField type="text" value={username} onChange={setUserName} placeholder='@username' disabled /></li>
                         <li><InputField type="text" value={mobileNumber} onChange={setMobileNumber} placeholder='Mobile Number' required /></li>
-                        <li><InputField type="text" className='' value={""} placeholder='Linkdin Profile URL' /></li>
 
                     </ul>
                 </div>

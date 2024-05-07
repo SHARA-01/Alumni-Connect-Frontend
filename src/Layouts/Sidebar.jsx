@@ -44,8 +44,8 @@ export default function Sidebar() {
                     </Link>
                 </li>
                 <li className=''>
-                    <Link to='new-post' className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 'new-post' ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
-                        <BiSolidDashboard size={22} className={`my-auto mx-2 ${activeMenu === 'new-post' ? "text-white" : "text-[#40679E]"}`} />
+                    <Link to='posts' className={`py-2 flex  px-2 rounded-md w-full ${ activeMenu === 'posts' || activeMenu === `posts/${id}` ? "bg-sky-400 text-white" : "text-[#344767]"}  border-none focus:text-white focus:shadow-md focus:bg-sky-400  hover:bg-gray-200`}>
+                        <BiSolidDashboard size={22} className={`my-auto mx-2 ${activeMenu === 'posts' || activeMenu === `posts/${id}` ? "text-white" : "text-[#40679E]"}`} />
                         Create Post
                     </Link>
                 </li>
