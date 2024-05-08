@@ -44,6 +44,7 @@ const JobPost = () => {
             toast.success("Post Deleted SuccessFully", {
                 position: 'top-center',
                 autoClose: 2000,
+                toastId: 1,
             })
         }
         setJobId(id)
@@ -58,6 +59,7 @@ const JobPost = () => {
             toast.success("Post Active SuccessFully", {
                 position: 'top-center',
                 autoClose: 2000,
+                toastId:2,
             })
 
         }
@@ -70,6 +72,7 @@ const JobPost = () => {
             toast.success("Post DeActive SuccessFully", {
                 position: 'top-center',
                 autoClose: 2000,
+                toastId: 3
             })
         }
     }

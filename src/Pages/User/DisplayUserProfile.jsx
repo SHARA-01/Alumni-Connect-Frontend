@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { FetchSingleuser } from '../../hooks/useFetch';
+import { formatDate } from '../../hooks/UseInfo';
 
 function DisplayUserProfile() {
     const { id } = useParams();
@@ -59,8 +60,8 @@ function DisplayUserProfile() {
                                     <li className=' inline-block w-full text-gray-400 font-bold text-md border-b-2 rounded-md py-1  px-5'>Company Info</li>
                                     <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> Company:   </span><span className='align-middle'>{userInfo.company_details.company_name}</span></li>
                                     <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> Designation:   </span> <span className='align-middle'> {userInfo.company_details.designation} </span> </li>
-                                    <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> Joining Date:   </span> <span className='align-middle'> {userInfo.company_details.start_year} </span> </li>
-                                    <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> End year:   </span> <span className='align-middle'> {userInfo.company_details.end_year} </span> </li>
+                                    <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> Joining Date:   </span> <span className='align-middle'> {formatDate(userInfo.company_details.start_date)} </span> </li>
+                                    <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> End year:   </span> <span className='align-middle'> {formatDate(userInfo.company_details.end_date)} </span> </li>
                                     <li> <span className='font-semibold inline mx-auto text-gray-700 align-middle'> CurrentlyWorking </span><span>  {userInfo.company_details.currently_working}</span></li>
                                 </ul> : ''
                             }

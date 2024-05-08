@@ -44,7 +44,7 @@ export default function Dashboard() {
                     </div>
                     <div className='grid h-[50px] text-right'>
                         <span className=' text-md mx-3 text-gray-500 ' >
-                            Membres
+                            Members
                         </span>
                         <span className=' font-bold text-2xl text-gray-700 mx-4'>
                             {users?.length}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FiEdit } from "../Components/ReactIconsIndex"
 import InputField from './InputField'
-import { UpdateAccount, WhoAmI } from '../hooks/useFetch'
+import { UpdateAccount, UpdateExperience, WhoAmI } from '../hooks/useFetch'
 import { formatDate } from '../hooks/UseInfo'
 import { toast } from 'react-toastify'
 
@@ -32,7 +32,7 @@ function ProfileCard() {
     const [startYear, setStartYear] = useState('')
     const [endYear, setEndYear] = useState('')
     const [companyName, setCompanyName] = useState('')
-    const [desination, setDesination] = useState('')
+    const [designation, setDesination] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [currentlyWorking, setCurrentlyWorking] = useState('')
@@ -59,11 +59,20 @@ function ProfileCard() {
     }, [userData])
 
 
-    const handleSubmit = async () => {
+    const handleSubmitUpdateAccount = async () => {
         let response = await UpdateAccount({ fullName, email, mobileNumber });
         if (response?.statusCode === 200) {
             toast.success(response?.message)
         } else {
+            toast.error(response?.response?.message)
+        }
+    }
+
+    const handleSubmitExpirence = async() =>{
+        let response = await UpdateExperience({companyName, designation, startDate, endDate, currentlyWorking})
+        if(response?.statusCode === 201){
+            toast.success(response?.message,{id:1})
+        }else{
             toast.error(response?.response?.message)
         }
     }
@@ -125,15 +134,16 @@ function ProfileCard() {
                     <div className='w-[97%] mx-auto px-5'>
                         <ul className='flex  space-y-8 mb-8 justify-between flex-wrap'>
                             <li><InputField type="text" value={companyName} onChange={setCompanyName} placeholder='Company Name' inputClass='mt-8' disabled={companyDetailsFieldHandle} /></li>
-                            <li><InputField type="text" value={desination} onChange={setDesination} placeholder='Desination' disabled={companyDetailsFieldHandle} /></li>
+                            <li><InputField type="text" value={designation} onChange={setDesination} placeholder='Desination' disabled={companyDetailsFieldHandle} /></li>
                             <li><InputField type="date" value={startDate} onChange={setStartDate} placeholder='Joining Date' disabled={companyDetailsFieldHandle} /></li>
                             <li><InputField type="date" value={endDate} onChange={setEndDate} placeholder='End Date' disabled={companyDetailsFieldHandle} /></li>
-                            <li className={`py-2 rounded-md text-gray-600 text-md border border-gray-300  placeholder:text-gray-500 placeholder:mx-2 focus:outline-blue-400`}>
+                            <li className={`rounded-md text-gray-600 text-md border border-gray-300   focus:outline-blue-400`}>
 
                                 {/* <InputField type="text" value={role} onChange={setRole} placeholder='Role' inputClass='focus:outline-blue-400' inputdivclass='mt-1 ml-2'  /> */}
-                                <select className='py-2 shadow-md rounded-md mx-2 my-auto bg-white outline-none'>
-                                    <option value="Alumni" selected>Alumni</option>
-                                    <option value="Student" >Student</option>
+                                <span className='px-3 text-gray-700 font-semibold py-2'>Currently Working</span>
+                                <select onChange={(e)=>setCurrentlyWorking(e.target.value)} className=' shadow-md rounded-md  my-auto bg-white outline-none'>
+                                    <option value="false" selected>false</option>
+                                    <option value="true" >true</option>
                                 </select>
                             </li>
                         </ul>
@@ -141,7 +151,7 @@ function ProfileCard() {
                 </div>
             }
             <div className='flex justify-end mx-auto w-auto lg:mx-0 lg:p-10'>
-                <button onClick={handleSubmit} className='bg-gradient-to-tr from-blue-400 to-blue-500 w-auto rounded-md p-2  text-white text-md font-semibold '>Update</button>
+                <button onClick={()=> {handleSubmitExpirence(), handleSubmitUpdateAccount()}} className='bg-gradient-to-tr from-blue-400 to-blue-500 w-auto rounded-md p-2  text-white text-md font-semibold '>Update</button>
             </div>
         </div>
     )

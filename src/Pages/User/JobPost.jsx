@@ -39,29 +39,17 @@ function JobPost() {
                             <input type='text' className='w-[75%] px-4 py-1 rounded-md bg-blur outline-none border border-blue-500 align-middle text-gray-600 text-md' value={query} placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
                             <button onClick={queryFetchJobs} className='px-4 -ml-10 text-center py-1 m\y-auto  bg-blue-500 rounded-md   text-white font-semibold active:bg-blue-600 outline-none z-10 '>Search</button>
                         </div>
-                        {
-                            dispalyQuerydiv ? <div className='w-[65%] mx-auto bg-white top-5 text-center text-gray-700 text-md font-semibold '>
-                                {
-                                    queryData && queryData.map((jobs)=> (
-                                        <ul key={jobs._id} className='flex justify-between border-b-2 my-3 max-h-[15vh]'>
-                                            <Link to={`/user/job/${jobs?._id}`}>
-                                            <li>
-                                                {jobs?.title}
-                                            </li>
-                                            </Link>
-                                            <li>
-                                                {jobs?.posted_by?.full_name}
-                                            </li>
-                                        </ul>
-                                    ))
-                                } 
-                            </div> : ''
-                        }
                     </li></ul>
 
             </div>
             <div className='w-[60%] m-4 space-y-4 '>
-                {
+                {   
+                    queryData ? queryData?.map((job) => (
+                        <div key={job._id}>
+                            <Link to={`/user/job/${job &&  job._id}`}>  <JobPostCard title={job.title} location={job.location} posted_by={job.posted_by.full_name} role={job.posted_by.role} jobDescription={job.job_description} /> </Link>
+                        </div>
+                    ))
+                    :
                     jobs && jobs.map((job) => (
                         <div key={job._id}>
                             <Link to={`/user/job/${job &&  job._id}`}>  <JobPostCard title={job.title} location={job.location} posted_by={job.posted_by.full_name} role={job.posted_by.role} jobDescription={job.job_description} /> </Link>

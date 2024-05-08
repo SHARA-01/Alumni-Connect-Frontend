@@ -236,7 +236,11 @@ export default function Users() {
                                         <>
                                             <tr key={user._id} className='flex justify-between border-b-2 ' >
                                                 <td onClick={() => { setShowProfile(true), setUserId(user._id), setShowUpdatediv(false) }} className='flex w-[35%]' >
-                                                    <span className='my-auto cursor-pointer' ><img className='h-9 w-9 rounded-full' src={user.avatar} alt="" /></span>
+                                                    <span className='my-auto cursor-pointer' >
+
+                                                        <img className='h-9 w-9 rounded-full' src={user.avatar} alt=""  /> 
+                                                        
+                                                        </span>
                                                     <span className='grid cursor-pointer' >
                                                         <span className='p-2 text-gray-800 text-md font-semibold cursor-pointer'>{user.full_name}</span>
                                                         <span className='p-2 text-gray-600 text-sm -mt-5 '>{user.email}</span>

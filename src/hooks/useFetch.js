@@ -74,6 +74,20 @@ const WhoAmI = async () => {
         return {response:await User.json(), status:User.status , statusText:User.statusText};
     }
 }
+const UpdateExperience = async (companyName, designation, startDate, currentlyWorking, endDate) => {
+    let User = await fetch(`http://localhost:8000/api/v1/users/experience`, {
+        method: "put",
+        body: JSON.stringify({
+            companyName, designation, startDate, currentlyWorking, endDate
+        }),
+        credentials: "include"
+    });
+    if (User.ok) {
+        return User.json();
+    } else {
+        return {response:await User.json(), status:User.status , statusText:User.statusText};
+    }
+}
 
 
 
@@ -184,4 +198,4 @@ const logOut = async()=>{
 
 }
 
-export { Fetch, FetchAllUser, UserDelete, UpdateUser, FetchSingleuser, WhoAmI , AvatarUpload, passwordChange, logOut, UpdateAccount, FetchUserWithQuery};
+export { Fetch, FetchAllUser, UserDelete, UpdateUser, FetchSingleuser, WhoAmI , AvatarUpload, passwordChange, logOut, UpdateAccount, FetchUserWithQuery, UpdateExperience};

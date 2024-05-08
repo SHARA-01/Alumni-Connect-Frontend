@@ -3,7 +3,7 @@ import { FetchAllUser, FetchUserWithQuery } from '../hooks/useFetch';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
-function Searchbar({ value, onChange }) {
+function Searchbar({ value, onChange , setState}) {
     const [isMobile, setIsMobile] = useState(false);
     const [query, setQuery] = useState('')
     const [dispalyQuerydiv, setQueryDiv] = useState(false)
@@ -25,7 +25,8 @@ function Searchbar({ value, onChange }) {
                 position: "top-center",
                 autoClose: 200
             })
-            setQueryData(response?.data)
+            setState(response?.data)
+            // setState = response?.data
             setQueryDiv(true)
         }
         else {
@@ -49,27 +50,6 @@ function Searchbar({ value, onChange }) {
                             <input type='text' className='py-2 my-5 h-12 w-[75%] lg:w-[70%] px-8 rounded-full bg-blur outline-none border border-blue-500' value={query} placeholder='Search' onChange={(e) => setQuery(e.target.value)} />
                             <button onClick={() => { fetchQuery() }} className=' lg:w-[12%] h-[3rem] flex  my-auto px-6 text-xl py-2 bg-blue-500 rounded-full  lg:-ml-24 align-middle  lg:text-center  text-white font-semibold active:bg-blue-600 outline-none z-10'>Search</button>
                             </div>
-                        {
-                            dispalyQuerydiv ? <div className='justify-center mx-auto w-[75%] bg-white  rounded-md text-center max-h-[50vh]'>
-                                {
-                                    queryData && queryData.map((user)=> (
-                                        <ul key={user._id} >
-                                             <Link className='my-5  h-5 w-[75%]    bg-blur outline-none border-b-2 mx-auto flex justify-between' to={`${user && user?.username}`}>
-                                            <li>{user.full_name}</li>
-                                            <li>{user.role}</li>
-                                            </Link>
-                                        </ul>
-                                       
-                                    ))
-                                    
-                                }
-
-                            </div> : ''
-
-
-                        }
-                        
-
                         </div>
                     </div>
             }
