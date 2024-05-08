@@ -3,7 +3,7 @@ import { FetchAllUser, UserDelete, UpdateUser } from '../../hooks/useFetch'
 import { activeStatus, formatDate } from '../../hooks/UseInfo'
 import { TbEdit, RiDeleteBin6Line, PiStudent, FaRegWindowClose } from '../../Components/ReactIconsIndex'
 import { UserProfileUpdateAdmin, UserProfileAdmin, toast } from '../../Components/index'
-
+import DEFAULT_IMG from "../../assets/react.svg"
 
 export default function Users() {
     const [users, setUsers] = useState('')
@@ -35,7 +35,7 @@ export default function Users() {
             toast.success(response?.message)
             setUsers('')
         }
-        else{
+        else {
             toast.error(response?.response?.message)
         }
     }
@@ -44,10 +44,10 @@ export default function Users() {
         setUserId(id)
     }
 
-    const handleNewRole = (role)=>{
-         role === "Alumni" ? role="Student" : role="Alumni"
+    const handleNewRole = (role) => {
+        role === "Alumni" ? role = "Student" : role = "Alumni"
         setNewRole(role)
-}
+    }
 
 
     return (
@@ -158,7 +158,12 @@ export default function Users() {
                                         <>
                                             <tr key={user._id} className='flex justify-between border-b-2 ' >
                                                 <td onClick={() => { setShowProfile(true), setUserId(user._id), setShowUpdatediv(false) }} className='flex w-[35%]' >
-                                                    <span className='my-auto cursor-pointer' ><img className='h-9 w-9 rounded-full' src={user.avatar} alt="" /></span>
+                                                    <span className='my-auto cursor-pointer' >
+                                                        <img
+                                                            className="h-9 w-9 rounded-full"
+                                                            src={user.avatar ? user.avatar : DEFAULT_IMG}
+                                                            alt=""
+                                                        /></span>
                                                     <span className='grid cursor-pointer'>
                                                         <span className='p-2 text-gray-800 text-md font-semibold cursor-pointer'>{user.full_name}</span>
                                                         <span className='p-2 text-gray-600 text-sm -mt-5 '>{user.email}</span>
@@ -237,10 +242,12 @@ export default function Users() {
                                             <tr key={user._id} className='flex justify-between border-b-2 ' >
                                                 <td onClick={() => { setShowProfile(true), setUserId(user._id), setShowUpdatediv(false) }} className='flex w-[35%]' >
                                                     <span className='my-auto cursor-pointer' >
-
-                                                        <img className='h-9 w-9 rounded-full' src={user.avatar} alt=""  /> 
-                                                        
-                                                        </span>
+                                                        <img
+                                                            className="h-9 w-9 rounded-full"
+                                                            src={user.avatar ? user.avatar : DEFAULT_IMG}
+                                                            alt=""
+                                                        />
+                                                    </span>
                                                     <span className='grid cursor-pointer' >
                                                         <span className='p-2 text-gray-800 text-md font-semibold cursor-pointer'>{user.full_name}</span>
                                                         <span className='p-2 text-gray-600 text-sm -mt-5 '>{user.email}</span>

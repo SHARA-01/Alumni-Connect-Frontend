@@ -46,13 +46,13 @@ function JobPost() {
                 {   
                     queryData ? queryData?.map((job) => (
                         <div key={job._id}>
-                            <Link to={`/user/job/${job &&  job._id}`}>  <JobPostCard title={job.title} location={job.location} posted_by={job.posted_by.full_name} role={job.posted_by.role} jobDescription={job.job_description} /> </Link>
+                            <Link to={`/user/job/${job &&  job._id}`}>  <JobPostCard title={job.title} location={job.location} posted_by={job.posted_by.full_name} role={job.posted_by.role} /> </Link>
                         </div>
                     ))
                     :
                     jobs && jobs.map((job) => (
                         <div key={job._id}>
-                            <Link to={`/user/job/${job &&  job._id}`}>  <JobPostCard title={job.title} location={job.location} posted_by={job.posted_by.full_name} role={job.posted_by.role} jobDescription={job.job_description} /> </Link>
+                            <Link to={`/user/job/${job &&  job._id}`}>  <JobPostCard title={job.title} location={job.location} posted_by={job.posted_by.full_name} role={job.posted_by.role}  /> </Link>
                         </div>
                     ))
                 }

@@ -72,7 +72,7 @@ function UserProfileForAdmin({newRole, id, Role, fullname, Email, userName, Mobi
                         <li><InputField type="text" value={fullName} onChange={setFullName} placeholder='Full Name' required /></li>
                         <li><InputField type="email" value={email} onChange={setEmail} placeholder='Email' required /></li>
                         <li><InputField type="text" value={username} onChange={setUserName} placeholder='@username' disabled /></li>
-                        <li><InputField type="text" value={mobileNumber} onChange={setMobileNumber} placeholder='Mobile Number' required /></li>
+                        <li><InputField type="tel" value={mobileNumber} onChange={setMobileNumber} placeholder='Mobile Number' required /></li>
 
                     </ul>
                 </div>
@@ -86,8 +86,8 @@ function UserProfileForAdmin({newRole, id, Role, fullname, Email, userName, Mobi
                     <ul className='flex  space-y-1 space-x-2 flex-wrap'>
                         <li><InputField type="text" value={degree} onChange={setDegree} placeholder='Degree' inputdivclass='mt-1 ml-2' /></li>
                         <li><InputField type="text" value={specialization} onChange={setSpecialization} placeholder='Branch' /></li>
-                        <li><InputField type="text" value={startYear} onChange={setStartYear} placeholder='start Year' /></li>
-                        <li><InputField type="text" value={endYear} onChange={setEndYear} placeholder='Passing Year' /></li>
+                        <li><InputField type="number" value={startYear} onChange={setStartYear} placeholder='start Year' /></li>
+                        <li><InputField type="number" value={endYear} onChange={setEndYear} placeholder='Passing Year' /></li>
                     </ul>
                 </div>
             </div>
@@ -100,8 +100,8 @@ function UserProfileForAdmin({newRole, id, Role, fullname, Email, userName, Mobi
                     <ul className='flex  space-y-1 space-x-2 flex-wrap'>
                         <li><InputField type="text" value={companyName} onChange={setCompanyName} placeholder='Company Name' inputdivclass='mt-1 ml-2' /></li>
                         <li><InputField type="text" value={designation} onChange={setDesination} placeholder='Desination' /></li>
-                        <li><InputField type="text" value={startDate} onChange={setStartDate} placeholder='Joining Date' /></li>
-                        <li><InputField type="text" value={endDate} onChange={setEndDate} placeholder='End Date' /></li>
+                        <li><InputField type="date" value={startDate} onChange={setStartDate} placeholder='Joining Date' /></li>
+                        <li><InputField type="date" value={endDate} onChange={setEndDate} placeholder='End Date' /></li>
                         <li className='flex text-gray-600 font-semibold space-x-3 pt-2'><input type="checkbox" onClick={handleCheckbox} className='px-3 ' /> <span>CurrentlyWorking</span></li>
                         {console.log(currentlyWorking)}
                     </ul>

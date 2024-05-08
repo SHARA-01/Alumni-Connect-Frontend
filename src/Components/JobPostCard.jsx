@@ -1,6 +1,6 @@
 import React from 'react'
 
-function JobPostCard({title, desination, location, posted_by, role, jobDescription}) {
+function JobPostCard({title, desination, location, posted_by, role}) {
   return (
     <div>
         <ul className='flex flex-col space-y-2 shadow-md p-4 rounded-md border-t-2 hover:shadow-xl bg-white'>
@@ -12,7 +12,6 @@ function JobPostCard({title, desination, location, posted_by, role, jobDescripti
             <li className='text-md capitalize text-zinc-700 font-semibold'> location : {location ? location : ""}</li>
             <li className='text-md capitalize text-green-600 font-semibold'>Posted By : { posted_by && role ? `${posted_by}(${role})`: ''}</li>
             </ul>
-            <li className='text-sm capitalize text-zinc-500 font-semibold'>{jobDescription || ""}</li>
         </ul>
     </div>
   )

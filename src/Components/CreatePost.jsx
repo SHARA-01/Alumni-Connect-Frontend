@@ -11,12 +11,14 @@ const CreatePost = ({ CreatePostDivhide, hideNewpostdiv, Title, Company, Locatio
     const [title, setTitle] = useState(Title || '')
     const [company, setCompany] = useState(Company || '')
     const [location, setLocation] = useState(Location || '')
-    const [editorHtml, setEditorHtml] = useState('')
+    // const [editorHtml, setEditorHtml] = useState('')
     const [jobDescription, setJobDescription] = useState(JobDescription || '');
 
     const handleChange = (data) => {
-        setEditorHtml(data);
-        convertToPlainText(data);
+        // setEditorHtml(data);
+        // convertToPlainText(data);
+        setJobDescription(data);
+        
     };
 
     const AddNewPost = async() => {
@@ -33,12 +35,12 @@ const CreatePost = ({ CreatePostDivhide, hideNewpostdiv, Title, Company, Locatio
        }
     }
 
-    const convertToPlainText = (data) => {
-        const parser = new DOMParser();
-        const parsedHtml = parser.parseFromString(data, 'text/html');
-        const plainText = parsedHtml.documentElement.textContent;
-        setJobDescription(plainText);
-    };
+    // const convertToPlainText = (data) => {
+    //     const parser = new DOMParser();
+    //     const parsedHtml = parser.parseFromString(data, 'text/html');
+    //     const plainText = parsedHtml.documentElement.textContent;
+    //     setJobDescription(plainText);
+    // };
 
     return (
         <div className='w-full h-auto ' >
@@ -62,7 +64,7 @@ const CreatePost = ({ CreatePostDivhide, hideNewpostdiv, Title, Company, Locatio
                         id='job-description'
                         className='w-full bg-white  rounded-md   '
                         theme="snow" 
-                        value={editorHtml} 
+                        value={jobDescription} 
                         onChange={handleChange} 
                         style={{ border: 'none', boxShadow: 'none', outline: 'none' }}
                     />

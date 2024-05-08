@@ -13,10 +13,11 @@ function JobPostView() {
             setJobInfo(response.data)
             setUserId(response.data.posted_by._id)
         }
-        if(jobInfo == ''){
+        if (jobInfo == '') {
             fetch();
         }
     })
+    
     return (
         <div className='h-auto min-h-[70vh] py-10'>
             <div className='w-[50%]  mx-auto bg-white px-10 py-10 rounded-md shadow-md shadow-black/30 space-y-4' >
@@ -32,14 +33,23 @@ function JobPostView() {
                             {`Location: ${jobInfo && jobInfo.location}` || ''}
                         </li>
                         <li className='text-blue-500'>{
-                            jobInfo && jobInfo?.posted_by?.role != "Admin" ? <Link to={`/user/${jobInfo && jobInfo.posted_by.username}`}>{`PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''}</Link> : `PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''   
-                            }
+                            jobInfo && jobInfo?.posted_by?.role != "Admin" ? <Link to={`/user/${jobInfo && jobInfo.posted_by.username}`}>{`PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''}</Link> : `PostedBy: ${jobInfo && jobInfo.posted_by.full_name}` || ''
+                        }
                         </li>
                     </ul>
                 </h3>
                 <h5 className='text-md text-gray-700 font-semibold '>
-                    {jobInfo && jobInfo?.job_description || ''}
-                </h5> 
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: jobInfo ? jobInfo.job_description : "",
+                        }}
+                        className="prose text-md text-gray-700 font-semibold "
+                    >
+                        {/* {jobInfo && jobInfo?.job_description || ''} */}
+                    </div>
+
+                    {/* {jobInfo && jobInfo?.job_description || ''} */}
+                </h5>
             </div>
         </div>
     )
